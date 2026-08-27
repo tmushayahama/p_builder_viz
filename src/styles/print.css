@@ -1,0 +1,226 @@
+/* ===========================================================================
+   Print foundation for the build record.
+
+   A build report is a permanent scientific record, so the printed page is a
+   real output, not a courtesy. This file does four jobs:
+     1. forces the light palette by re-pointing the active token aliases at the
+        light raw values declared in `src/index.css` - which is why there is not
+        a single colour literal here
+     2. suppresses app chrome and navigation
+     3. expands every progressive disclosure so nothing is hidden on paper
+     4. controls page breaks around phases and reports, and makes anchors and
+        URLs readable without the application
+
+   The full export story is `07-extensibility-search-export`; this file only
+   guarantees the token layer and the primitives do not have to be rewritten
+   for it.
+
+   `!important` is used deliberately: Tailwind emits its utilities inside
+   `@layer utilities`, and unlayered rules here already beat them, but the
+   unlayered element rules at the bottom of `index.css` come later in source
+   order and would otherwise win on equal specificity.
+
+   The DOM contract the primitives honour:
+     [data-pb-chrome]            app chrome / navigation, dropped in print
+     [data-pb-print='hide']      any element that should not print
+     [data-pb-print='show']      an element hidden on screen that must print
+     [data-pb-disclosure-panel]  disclosure body, expanded in print
+     [data-pb-scroll]            scrolls on screen, unclipped in print
+     [data-pb-break='before']    starts a new page (a phase, a report)
+     [data-pb-break='avoid']     must not be split across pages
+     [data-pb-anchor]            deep-link target whose id is printed
+   =========================================================================== */
+
+@media print {
+  /* 1. Forced light palette. One alias flip; no literals restated.
+
+     The selectors carry an extra `html` on purpose. `@import` is only legal at
+     the top of a stylesheet, so this file is inlined BEFORE `index.css` declares
+     `:root[data-mantine-color-scheme='dark']`; on equal specificity that later
+     block would win and a dark console would print dark. `html:root[...]` outranks
+     it, so the print override wins from wherever it is imported. */
+  html:root,
+  html:root[data-mantine-color-scheme='light'],
+  html:root[data-mantine-color-scheme='dark'] {
+    --pb-plane: var(--pb-l-plane);
+    --pb-surface-1: var(--pb-l-surface-1);
+    --pb-surface-2: var(--pb-l-surface-2);
+    --pb-surface-3: var(--pb-l-surface-3);
+    --pb-ink: var(--pb-l-ink);
+    --pb-ink-muted: var(--pb-l-ink-muted);
+    --pb-ink-faint: var(--pb-l-ink-faint);
+    --pb-ink-inverse: var(--pb-l-ink-inverse);
+    --pb-hairline: var(--pb-l-hairline);
+    --pb-hairline-strong: var(--pb-l-hairline-strong);
+    --pb-grid: var(--pb-l-grid);
+    --pb-axis: var(--pb-l-axis);
+    --pb-hatch-ink: var(--pb-l-hatch-ink);
+    --pb-accent: var(--pb-l-accent);
+    --pb-accent-hover: var(--pb-l-accent-hover);
+    --pb-accent-wash: var(--pb-l-accent-wash);
+    --pb-on-accent: var(--pb-l-on-accent);
+    --pb-status-pass: var(--pb-l-status-pass);
+    --pb-status-warn: var(--pb-l-status-warn);
+    --pb-status-hole: var(--pb-l-status-hole);
+    --pb-status-fail: var(--pb-l-status-fail);
+    --pb-status-active: var(--pb-l-status-active);
+    --pb-status-neutral: var(--pb-l-status-neutral);
+    --pb-status-pass-wash: var(--pb-l-status-pass-wash);
+    --pb-status-warn-wash: var(--pb-l-status-warn-wash);
+    --pb-status-hole-wash: var(--pb-l-status-hole-wash);
+    --pb-status-fail-wash: var(--pb-l-status-fail-wash);
+    --pb-status-active-wash: var(--pb-l-status-active-wash);
+    --pb-status-neutral-wash: var(--pb-l-status-neutral-wash);
+    --pb-on-status: var(--pb-l-on-status);
+    --pb-series-1: var(--pb-l-series-1);
+    --pb-series-2: var(--pb-l-series-2);
+    --pb-series-3: var(--pb-l-series-3);
+    --pb-series-4: var(--pb-l-series-4);
+    --pb-series-5: var(--pb-l-series-5);
+    --pb-series-6: var(--pb-l-series-6);
+    --pb-series-other: var(--pb-l-series-other);
+    --pb-on-series-1: var(--pb-l-on-series-1);
+    --pb-on-series-2: var(--pb-l-on-series-2);
+    --pb-on-series-3: var(--pb-l-on-series-3);
+    --pb-on-series-4: var(--pb-l-on-series-4);
+    --pb-on-series-5: var(--pb-l-on-series-5);
+    --pb-on-series-6: var(--pb-l-on-series-6);
+    --pb-on-series-other: var(--pb-l-on-series-other);
+    --pb-seq-1: var(--pb-l-seq-1);
+    --pb-seq-2: var(--pb-l-seq-2);
+    --pb-seq-3: var(--pb-l-seq-3);
+    --pb-seq-4: var(--pb-l-seq-4);
+    --pb-seq-5: var(--pb-l-seq-5);
+    --pb-ord-1: var(--pb-l-ord-1);
+    --pb-ord-2: var(--pb-l-ord-2);
+    --pb-ord-3: var(--pb-l-ord-3);
+    --pb-ord-4: var(--pb-l-ord-4);
+    --pb-ord-5: var(--pb-l-ord-5);
+    --pb-div-neg-3: var(--pb-l-div-neg-3);
+    --pb-div-neg-2: var(--pb-l-div-neg-2);
+    --pb-div-neg-1: var(--pb-l-div-neg-1);
+    --pb-div-mid: var(--pb-l-div-mid);
+    --pb-div-pos-1: var(--pb-l-div-pos-1);
+    --pb-div-pos-2: var(--pb-l-div-pos-2);
+    --pb-div-pos-3: var(--pb-l-div-pos-3);
+    --pb-wash-hover: transparent;
+    --pb-wash-selected: transparent;
+  }
+
+  @page {
+    margin: 14mm 12mm;
+  }
+
+  html,
+  body,
+  #root {
+    height: auto !important;
+    background: var(--pb-l-surface-1) !important;
+    color: var(--pb-l-ink) !important;
+  }
+
+  /* Status washes and series fills are meaning, not decoration - the browser
+     must not helpfully drop them. */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* 2. Chrome and navigation. */
+  [data-pb-chrome],
+  [data-pb-print='hide'] {
+    display: none !important;
+  }
+
+  [data-pb-print='show'] {
+    display: block !important;
+  }
+
+  /* 3. Disclosures are expanded: a printed record that hides 61 steps behind a
+        chevron is not a record. The disclosure primitive keeps its children
+        mounted for exactly this reason. */
+  [data-pb-disclosure-panel] {
+    display: block !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+
+  [data-pb-disclosure-toggle] {
+    /* keep the summary text, drop the affordance */
+    pointer-events: none;
+  }
+
+  [data-pb-disclosure-toggle] [data-pb-disclosure-chevron] {
+    display: none !important;
+  }
+
+  /* Anything that scrolls on screen prints in full rather than clipping. */
+  [data-pb-scroll] {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* 4. Page-break control. */
+  [data-pb-break='before'] {
+    break-before: page;
+  }
+
+  [data-pb-break='avoid'] {
+    break-inside: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    break-after: avoid;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr,
+  figure,
+  svg,
+  pre {
+    break-inside: avoid;
+  }
+
+  /* A truncation notice must never end up on a different page from its table. */
+  [data-pb-truncation] {
+    break-before: avoid;
+  }
+
+  /* Anchors and URLs made visible: printed output has no hover and no
+     address bar, so a link that says "see the check" says nothing. */
+  a[href^='http']::after {
+    content: ' <' attr(href) '>';
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--pb-l-ink-muted);
+    overflow-wrap: anywhere;
+  }
+
+  a[href^='#']::after {
+    content: ' [' attr(href) ']';
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--pb-l-ink-muted);
+  }
+
+  [data-pb-anchor]::before {
+    content: '#' attr(id);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    color: var(--pb-l-ink-faint);
+  }
+
+  /* Print surfaces: keep the hairline, drop the fill so ink is spent on data. */
+  [data-pb-panel] {
+    box-shadow: inset 0 0 0 1px var(--pb-l-hairline-strong) !important;
+    background: var(--pb-l-surface-1) !important;
+    break-inside: avoid;
+  }
+}

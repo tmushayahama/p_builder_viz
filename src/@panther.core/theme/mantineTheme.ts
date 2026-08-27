@@ -1,42 +1,133 @@
-import { ActionIcon, Button, Select, TextInput, Tooltip, createTheme } from '@mantine/core'
+import {
+  ActionIcon,
+  Anchor,
+  Button,
+  Checkbox,
+  Code,
+  Divider,
+  Menu,
+  Modal,
+  MultiSelect,
+  Paper,
+  Popover,
+  ScrollArea,
+  SegmentedControl,
+  Select,
+  Switch,
+  Tabs,
+  TextInput,
+  Tooltip,
+  createTheme,
+} from '@mantine/core'
 
 /**
  * Mantine theme for the app.
  *
- * Component defaults live here rather than being repeated at every call site, so
- * control sizing stays consistent as the app grows. Colour belongs to Mantine's
- * own scheme handling — `src/index.css` bridges the page surface to it instead of
- * declaring a competing palette.
+ * Mantine owns interactive controls; the token layer in `src/index.css` owns
+ * colour. So this file contains NO colour value of any kind - not a hex, not a
+ * `colors` tuple, not a `color` default prop. `primaryColor` stays on Mantine's
+ * built-in `blue`, and `index.css` re-points the Mantine semantic variables
+ * (`--mantine-primary-color-filled`, `--mantine-color-body`, ...) at our
+ * accent and surfaces. That keeps every literal in one file and keeps status
+ * colour out of component props, where the token layer could not see it.
+ *
+ * Everything here is sizing, density and radius: a build report is dense, so the
+ * controls default small once here rather than at 200 call sites.
  */
 export const mantineTheme = createTheme({
   primaryColor: 'blue',
   defaultRadius: 'sm',
+  focusRing: 'auto',
+  cursorType: 'pointer',
   fontFamily:
     'system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", Roboto, sans-serif',
   fontFamilyMonospace:
     'ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, monospace',
   fontSizes: {
-    xs: '0.75rem',
-    sm: '0.875rem',
-    md: '1rem',
-    lg: '1.125rem',
-    xl: '1.25rem',
+    xs: '0.6875rem',
+    sm: '0.75rem',
+    md: '0.8125rem',
+    lg: '0.9375rem',
+    xl: '1.0625rem',
   },
-  headings: { fontWeight: '600' },
+  lineHeights: {
+    xs: '1.35',
+    sm: '1.4',
+    md: '1.45',
+    lg: '1.45',
+    xl: '1.4',
+  },
+  // A compact scale: the report's rhythm is tighter than Mantine's default, and
+  // large empty areas are a defect in this design rather than breathing room.
+  spacing: {
+    xs: '0.25rem',
+    sm: '0.375rem',
+    md: '0.5rem',
+    lg: '0.75rem',
+    xl: '1rem',
+  },
+  radius: {
+    xs: '1px',
+    sm: '2px',
+    md: '3px',
+    lg: '4px',
+    xl: '6px',
+  },
+  headings: {
+    fontWeight: '600',
+    sizes: {
+      h1: { fontSize: '1.0625rem', lineHeight: '1.3' },
+      h2: { fontSize: '0.9375rem', lineHeight: '1.3' },
+      h3: { fontSize: '0.8125rem', lineHeight: '1.35' },
+      h4: { fontSize: '0.75rem', lineHeight: '1.35' },
+    },
+  },
   components: {
     Button: Button.extend({
-      defaultProps: { size: 'xs' },
-      styles: { root: { textTransform: 'none' } },
+      defaultProps: { size: 'compact-xs', variant: 'default' },
+      styles: { root: { textTransform: 'none', fontWeight: 500 } },
     }),
     ActionIcon: ActionIcon.extend({
-      defaultProps: { variant: 'subtle', color: 'gray' },
+      defaultProps: { variant: 'subtle', color: 'gray', size: 'sm' },
+    }),
+    Anchor: Anchor.extend({
+      defaultProps: { underline: 'hover', size: 'sm' },
     }),
     TextInput: TextInput.extend({ defaultProps: { size: 'xs' } }),
     Select: Select.extend({
       defaultProps: { size: 'xs', allowDeselect: false, comboboxProps: { withinPortal: true } },
     }),
+    MultiSelect: MultiSelect.extend({
+      defaultProps: { size: 'xs', comboboxProps: { withinPortal: true } },
+    }),
+    Checkbox: Checkbox.extend({ defaultProps: { size: 'xs' } }),
+    Switch: Switch.extend({ defaultProps: { size: 'xs' } }),
+    SegmentedControl: SegmentedControl.extend({
+      defaultProps: { size: 'xs', radius: 'sm', withItemsBorders: false },
+    }),
+    Tabs: Tabs.extend({ defaultProps: { variant: 'default', keepMounted: false } }),
     Tooltip: Tooltip.extend({
-      defaultProps: { withArrow: true, openDelay: 200 },
+      defaultProps: { withArrow: true, openDelay: 200, fz: 'xs', maw: 300, multiline: true },
+    }),
+    Popover: Popover.extend({
+      defaultProps: { withinPortal: true, shadow: 'none', radius: 'sm', withArrow: true },
+    }),
+    Menu: Menu.extend({
+      defaultProps: { withinPortal: true, shadow: 'none', radius: 'sm' },
+    }),
+    Modal: Modal.extend({
+      defaultProps: { radius: 'sm', centered: true, size: 'lg', shadow: 'none' },
+    }),
+    // Mantine's Paper is the card-on-gray look the brief rules out. Flattening
+    // it here means an accidental <Paper> cannot reintroduce elevation; use
+    // `Panel` instead.
+    Paper: Paper.extend({
+      defaultProps: { shadow: 'none', radius: 'sm', withBorder: false, p: 0 },
+    }),
+    Divider: Divider.extend({ defaultProps: { size: 1 } }),
+    Code: Code.extend({ defaultProps: { fz: 'xs' } }),
+    ScrollArea: ScrollArea.extend({
+      defaultProps: { type: 'auto', scrollbarSize: 8, offsetScrollbars: false },
     }),
   },
 })

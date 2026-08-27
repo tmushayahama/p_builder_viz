@@ -1,4 +1,28 @@
 @import 'tailwindcss';
+/* The print foundation reads the same raw palette declared below and re-points
+   the active aliases at the light values. It is imported here rather than from
+   `main.tsx` so the token layer and its print override travel together. */
+@import './styles/print.css';
+
+/* ===========================================================================
+   Tailwind entry and the design-token layer for a dense technical build report.
+
+   THIS IS THE ONLY FILE IN src/ ALLOWED TO CONTAIN A COLOUR LITERAL.
+   A hex, rgb() or hsl() anywhere else under src/ is a defect: component code
+   names a JOB (bg-surface-1, text-ink-muted, fill-series-3, text-status-warn),
+   never a colour, and TypeScript reaches these values only through
+   `@panther.core/theme/tokens.ts`, which returns var() references.
+
+   Structure, top to bottom:
+     1. the `dark:` variant bridge (load-bearing)
+     2. raw palette values, declared once per scheme as --pb-l-* / --pb-d-*
+     3. active aliases (--pb-*), switched by the colour-scheme attribute
+     4. an @theme inline block mapping the aliases onto Tailwind utilities by role
+     5. semantic utilities (hairline rings, tabular figures, mono identifiers,
+        the hatch texture channel)
+     6. a bridge handing our surfaces to Mantine's own CSS variables
+     7. base element styles
+   =========================================================================== */
 
 /* Tailwind's `dark:` variant defaults to `prefers-color-scheme`, which would
    ignore the in-app colour-scheme toggle and leave Tailwind-styled elements
@@ -6,30 +30,560 @@
    Mantine actually stamps on the root element so one switch drives both. */
 @custom-variant dark (&:where([data-mantine-color-scheme='dark'], [data-mantine-color-scheme='dark'] *));
 
-/* Tailwind v4 configures itself from CSS, not a JS config file — extend the
-   design system here with `@theme`. Values declared here become utilities
-   (`font-sans`, `text-2xs`, `bg-surface`, …). */
+/* ---------------------------------------------------------------------------
+   2 + 3. Raw palette, then the active aliases.
+
+   Both schemes are declared in the same block so the palette has ONE
+   definition, and the scheme switch is a pure alias flip. That is also what
+   lets `styles/print.css` force the light palette without restating a single
+   literal: it re-points --pb-* at --pb-l-*.
+
+   Dark is the working default for a build console; light is equally deliberate
+   because printing and release review happen in light.
+
+   ---------------------------------------------------------------------------
+   COLOUR-VISION VALIDATION OF THE CATEGORICAL SET (do not eyeball this)
+
+   Method: pairwise Euclidean distance in OKLab x100 between categorical slots,
+   under the Machado / Oliveira / Fernandes (2009) severity-1.0 protanopia and
+   deuteranopia transforms, taking min(protan, deutan) per pair; the same
+   distance under unsimulated vision; and WCAG contrast of each slot against
+   its own chart surface (--pb-surface-1). Computed against OUR surfaces
+   (#fbfbf9 light, #16171a dark), not a library default. Gates: adjacent-pair
+   CVD dE >= 8, adjacent-pair normal-vision dE >= 15, OKLCH L inside the mode
+   band, OKLCH C >= 0.10, contrast >= 3:1.
+
+   Slot order - blue, aqua, orange, violet, yellow, magenta - is the safety
+   mechanism, not a preference: orderings were enumerated and only ones
+   clearing every gate in BOTH schemes were kept. Results:
+
+     light (surface #fbfbf9)  adjacent worst CVD   9.7 (orange <-> aqua, protan)
+                              adjacent worst norm 17.7 (magenta <-> yellow)
+                              contrast            all 6 >= 3:1 (3.06 - 8.26)
+                              L band              all 6 in 0.43 - 0.68
+     dark  (surface #16171a)  adjacent worst CVD   9.4 (orange <-> aqua, deutan)
+                              adjacent worst norm 19.3 (magenta <-> yellow)
+                              contrast            all 6 >= 3:1 (4.54 - 5.84)
+                              L band              all 6 in 0.62 - 0.67
+
+   series-other clears the same gate (4.17 light / 4.63 dark), as does every
+   status tone (4.60 - 4.64 light, 6.31 - 8.43 dark; status-neutral shares
+   series-other's value). The ordinal ramp's lightest step stays readable as a
+   fill (2.04 light / 2.21 dark) and its steps are monotone with adjacent dE
+   9.5 - 14.7. The diverging arms separate at dE 24.6 light / 15.5 dark end to
+   end, with the neutral midpoint at 1.15 / 1.46 against the surface - a
+   deliberate near-match, because "no change" should read as no ink.
+
+   All-pairs separation (not just adjacent) holds for the FIRST THREE SLOTS
+   ONLY - worst CVD 9.7 light / 9.4 dark, worst normal 22.9 light / 20.9 dark.
+   No four-slot subset of this pool clears all-pairs in both schemes: the
+   maximum clique in the passing-adjacency graph is 3. So a scatter, beeswarm
+   or map, where every pair is visually adjacent, caps at three categorical
+   series and folds the rest into `series-other`. Stacks, bars, lines and areas
+   use the adjacent gate and are safe to slot 6.
+
+   Reserved hues: green and red are NOT in the categorical set. They belong to
+   status (pass / fail), and a green or red bar in a build report reads as
+   pass/fail whatever the legend says. status-warn amber shares a hue family
+   with series-5 yellow, and status-hole shares one with series-3 orange; the
+   mitigation is the rule the whole app already enforces - a status colour
+   never appears without an icon AND a word - plus the rule that a single plot
+   never mixes categorical fills with status fills.
+   --------------------------------------------------------------------------- */
+:root {
+  /* -- surfaces: three steps plus the page plane, and no more -------------- */
+  --pb-l-plane: #eeeeea;
+  --pb-l-surface-1: #fbfbf9;
+  --pb-l-surface-2: #f4f4f0;
+  --pb-l-surface-3: #e9e9e4;
+
+  /* -- ink ---------------------------------------------------------------- */
+  --pb-l-ink: #14161a;
+  --pb-l-ink-muted: #4d5157;
+  --pb-l-ink-faint: #767a80;
+  --pb-l-ink-inverse: #fbfbf9;
+
+  /* -- lines: chrome one step off the surface, never competing with data --- */
+  --pb-l-hairline: rgb(20 22 26 / 0.13);
+  --pb-l-hairline-strong: rgb(20 22 26 / 0.26);
+  --pb-l-grid: #e6e6e0;
+  --pb-l-axis: #c3c3bb;
+  --pb-l-hatch-ink: rgb(20 22 26 / 0.22);
+
+  /* -- the one accent: changed, anomalous, attention-worthy ---------------- */
+  --pb-l-accent: #2372cf;
+  --pb-l-accent-hover: #1b60b3;
+  --pb-l-accent-wash: rgb(35 114 207 / 0.1);
+  --pb-l-on-accent: #ffffff;
+
+  /* -- status: state only, always shipped with an icon and a word ---------- */
+  --pb-l-status-pass: #008601;
+  --pb-l-status-warn: #986a00;
+  --pb-l-status-hole: #b9552b;
+  --pb-l-status-fail: #d03b3b;
+  --pb-l-status-active: #2372cf;
+  --pb-l-status-neutral: #767a80;
+  --pb-l-status-pass-wash: rgb(0 134 1 / 0.1);
+  --pb-l-status-warn-wash: rgb(152 106 0 / 0.12);
+  --pb-l-status-hole-wash: rgb(185 85 43 / 0.12);
+  --pb-l-status-fail-wash: rgb(208 59 59 / 0.1);
+  --pb-l-status-active-wash: rgb(35 114 207 / 0.1);
+  --pb-l-status-neutral-wash: rgb(118 122 128 / 0.1);
+  --pb-l-on-status: #ffffff;
+
+  /* -- categorical: identity, fixed slot order, never cycled -------------- */
+  --pb-l-series-1: #2a78d6;
+  --pb-l-series-2: #00a571;
+  --pb-l-series-3: #eb6834;
+  --pb-l-series-4: #4a3aa7;
+  --pb-l-series-5: #c38400;
+  --pb-l-series-6: #d96e97;
+  --pb-l-series-other: #767a80;
+
+  /* label ink for text sitting INSIDE a fill, picked by the fill's own
+     luminance; every pair below clears 4.4:1 */
+  --pb-l-on-series-1: #ffffff;
+  --pb-l-on-series-2: #101215;
+  --pb-l-on-series-3: #101215;
+  --pb-l-on-series-4: #ffffff;
+  --pb-l-on-series-5: #101215;
+  --pb-l-on-series-6: #101215;
+  --pb-l-on-series-other: #ffffff;
+
+  /* -- sequential: ONE hue, ordered low -> high magnitude ------------------ */
+  --pb-l-seq-1: #cde2fb;
+  --pb-l-seq-2: #9ec5f4;
+  --pb-l-seq-3: #5598e7;
+  --pb-l-seq-4: #2a78d6;
+  --pb-l-seq-5: #184f95;
+
+  /* -- ordinal: one hue, monotone steps, lightest step still >= 2:1 -------- */
+  --pb-l-ord-1: #86b6ef;
+  --pb-l-ord-2: #5598e7;
+  --pb-l-ord-3: #2a78d6;
+  --pb-l-ord-4: #1c5cab;
+  --pb-l-ord-5: #0d366b;
+
+  /* -- diverging: two opposed hues, NEUTRAL GREY midpoint.
+        blue <-> magenta rather than blue <-> red on purpose: in this app red
+        means failure, and a species count that fell may be a rename, not a
+        loss. The palette must not pre-judge the sign. --------------------- */
+  --pb-l-div-neg-3: #a8265f;
+  --pb-l-div-neg-2: #c56e8a;
+  --pb-l-div-neg-1: #dcacb7;
+  --pb-l-div-mid: #ecebe7;
+  --pb-l-div-pos-1: #a7bbd6;
+  --pb-l-div-pos-2: #648cc2;
+  --pb-l-div-pos-3: #1c5cab;
+
+  /* -- interaction washes ------------------------------------------------- */
+  --pb-l-wash-hover: rgb(20 22 26 / 0.045);
+  --pb-l-wash-selected: rgb(35 114 207 / 0.09);
+
+  /* ====================== dark =========================================== */
+  --pb-d-plane: #0d0e10;
+  --pb-d-surface-1: #16171a;
+  --pb-d-surface-2: #1d1f23;
+  --pb-d-surface-3: #25282d;
+
+  --pb-d-ink: #eef0f3;
+  --pb-d-ink-muted: #a8adb5;
+  --pb-d-ink-faint: #7c828b;
+  --pb-d-ink-inverse: #0b0c0d;
+
+  --pb-d-hairline: rgb(238 240 243 / 0.14);
+  --pb-d-hairline-strong: rgb(238 240 243 / 0.26);
+  --pb-d-grid: #262930;
+  --pb-d-axis: #3a3f47;
+  --pb-d-hatch-ink: rgb(238 240 243 / 0.24);
+
+  --pb-d-accent: #58a0f0;
+  --pb-d-accent-hover: #7bb4f5;
+  --pb-d-accent-wash: rgb(88 160 240 / 0.16);
+  --pb-d-on-accent: #0b0c0d;
+
+  --pb-d-status-pass: #3fae5a;
+  --pb-d-status-warn: #e0a92a;
+  --pb-d-status-hole: #ec835a;
+  --pb-d-status-fail: #f0736f;
+  --pb-d-status-active: #58a0f0;
+  --pb-d-status-neutral: #7c828b;
+  --pb-d-status-pass-wash: rgb(63 174 90 / 0.16);
+  --pb-d-status-warn-wash: rgb(224 169 42 / 0.16);
+  --pb-d-status-hole-wash: rgb(236 131 90 / 0.16);
+  --pb-d-status-fail-wash: rgb(240 115 111 / 0.16);
+  --pb-d-status-active-wash: rgb(88 160 240 / 0.16);
+  --pb-d-status-neutral-wash: rgb(124 130 139 / 0.16);
+  --pb-d-on-status: #0b0c0d;
+
+  --pb-d-series-1: #3987e5;
+  --pb-d-series-2: #199e70;
+  --pb-d-series-3: #d95926;
+  --pb-d-series-4: #9085e9;
+  --pb-d-series-5: #c98500;
+  --pb-d-series-6: #d55181;
+  --pb-d-series-other: #7c828b;
+
+  --pb-d-on-series-1: #0b0c0d;
+  --pb-d-on-series-2: #0b0c0d;
+  --pb-d-on-series-3: #0b0c0d;
+  --pb-d-on-series-4: #0b0c0d;
+  --pb-d-on-series-5: #0b0c0d;
+  --pb-d-on-series-6: #0b0c0d;
+  --pb-d-on-series-other: #0b0c0d;
+
+  /* on a dark surface a magnitude ramp runs dark -> light, or the high end
+     disappears into the page; seq-1 is still the LOW end in both schemes */
+  --pb-d-seq-1: #104281;
+  --pb-d-seq-2: #1c5cab;
+  --pb-d-seq-3: #2a78d6;
+  --pb-d-seq-4: #5598e7;
+  --pb-d-seq-5: #9ec5f4;
+
+  --pb-d-ord-1: #184f95;
+  --pb-d-ord-2: #256abf;
+  --pb-d-ord-3: #3987e5;
+  --pb-d-ord-4: #6da7ec;
+  --pb-d-ord-5: #9ec5f4;
+
+  --pb-d-div-neg-3: #eb95b8;
+  --pb-d-div-neg-2: #aa748b;
+  --pb-d-div-neg-1: #6c5461;
+  --pb-d-div-mid: #33353a;
+  --pb-d-div-pos-1: #556173;
+  --pb-d-div-pos-2: #7892b1;
+  --pb-d-div-pos-3: #9ec5f4;
+
+  --pb-d-wash-hover: rgb(238 240 243 / 0.055);
+  --pb-d-wash-selected: rgb(88 160 240 / 0.14);
+
+  /* ====================== active aliases (light is the default) ========== */
+  --pb-plane: var(--pb-l-plane);
+  --pb-surface-1: var(--pb-l-surface-1);
+  --pb-surface-2: var(--pb-l-surface-2);
+  --pb-surface-3: var(--pb-l-surface-3);
+  --pb-ink: var(--pb-l-ink);
+  --pb-ink-muted: var(--pb-l-ink-muted);
+  --pb-ink-faint: var(--pb-l-ink-faint);
+  --pb-ink-inverse: var(--pb-l-ink-inverse);
+  --pb-hairline: var(--pb-l-hairline);
+  --pb-hairline-strong: var(--pb-l-hairline-strong);
+  --pb-grid: var(--pb-l-grid);
+  --pb-axis: var(--pb-l-axis);
+  --pb-hatch-ink: var(--pb-l-hatch-ink);
+  --pb-accent: var(--pb-l-accent);
+  --pb-accent-hover: var(--pb-l-accent-hover);
+  --pb-accent-wash: var(--pb-l-accent-wash);
+  --pb-on-accent: var(--pb-l-on-accent);
+  --pb-status-pass: var(--pb-l-status-pass);
+  --pb-status-warn: var(--pb-l-status-warn);
+  --pb-status-hole: var(--pb-l-status-hole);
+  --pb-status-fail: var(--pb-l-status-fail);
+  --pb-status-active: var(--pb-l-status-active);
+  --pb-status-neutral: var(--pb-l-status-neutral);
+  --pb-status-pass-wash: var(--pb-l-status-pass-wash);
+  --pb-status-warn-wash: var(--pb-l-status-warn-wash);
+  --pb-status-hole-wash: var(--pb-l-status-hole-wash);
+  --pb-status-fail-wash: var(--pb-l-status-fail-wash);
+  --pb-status-active-wash: var(--pb-l-status-active-wash);
+  --pb-status-neutral-wash: var(--pb-l-status-neutral-wash);
+  --pb-on-status: var(--pb-l-on-status);
+  --pb-series-1: var(--pb-l-series-1);
+  --pb-series-2: var(--pb-l-series-2);
+  --pb-series-3: var(--pb-l-series-3);
+  --pb-series-4: var(--pb-l-series-4);
+  --pb-series-5: var(--pb-l-series-5);
+  --pb-series-6: var(--pb-l-series-6);
+  --pb-series-other: var(--pb-l-series-other);
+  --pb-on-series-1: var(--pb-l-on-series-1);
+  --pb-on-series-2: var(--pb-l-on-series-2);
+  --pb-on-series-3: var(--pb-l-on-series-3);
+  --pb-on-series-4: var(--pb-l-on-series-4);
+  --pb-on-series-5: var(--pb-l-on-series-5);
+  --pb-on-series-6: var(--pb-l-on-series-6);
+  --pb-on-series-other: var(--pb-l-on-series-other);
+  --pb-seq-1: var(--pb-l-seq-1);
+  --pb-seq-2: var(--pb-l-seq-2);
+  --pb-seq-3: var(--pb-l-seq-3);
+  --pb-seq-4: var(--pb-l-seq-4);
+  --pb-seq-5: var(--pb-l-seq-5);
+  --pb-ord-1: var(--pb-l-ord-1);
+  --pb-ord-2: var(--pb-l-ord-2);
+  --pb-ord-3: var(--pb-l-ord-3);
+  --pb-ord-4: var(--pb-l-ord-4);
+  --pb-ord-5: var(--pb-l-ord-5);
+  --pb-div-neg-3: var(--pb-l-div-neg-3);
+  --pb-div-neg-2: var(--pb-l-div-neg-2);
+  --pb-div-neg-1: var(--pb-l-div-neg-1);
+  --pb-div-mid: var(--pb-l-div-mid);
+  --pb-div-pos-1: var(--pb-l-div-pos-1);
+  --pb-div-pos-2: var(--pb-l-div-pos-2);
+  --pb-div-pos-3: var(--pb-l-div-pos-3);
+  --pb-wash-hover: var(--pb-l-wash-hover);
+  --pb-wash-selected: var(--pb-l-wash-selected);
+}
+
+:root[data-mantine-color-scheme='dark'] {
+  --pb-plane: var(--pb-d-plane);
+  --pb-surface-1: var(--pb-d-surface-1);
+  --pb-surface-2: var(--pb-d-surface-2);
+  --pb-surface-3: var(--pb-d-surface-3);
+  --pb-ink: var(--pb-d-ink);
+  --pb-ink-muted: var(--pb-d-ink-muted);
+  --pb-ink-faint: var(--pb-d-ink-faint);
+  --pb-ink-inverse: var(--pb-d-ink-inverse);
+  --pb-hairline: var(--pb-d-hairline);
+  --pb-hairline-strong: var(--pb-d-hairline-strong);
+  --pb-grid: var(--pb-d-grid);
+  --pb-axis: var(--pb-d-axis);
+  --pb-hatch-ink: var(--pb-d-hatch-ink);
+  --pb-accent: var(--pb-d-accent);
+  --pb-accent-hover: var(--pb-d-accent-hover);
+  --pb-accent-wash: var(--pb-d-accent-wash);
+  --pb-on-accent: var(--pb-d-on-accent);
+  --pb-status-pass: var(--pb-d-status-pass);
+  --pb-status-warn: var(--pb-d-status-warn);
+  --pb-status-hole: var(--pb-d-status-hole);
+  --pb-status-fail: var(--pb-d-status-fail);
+  --pb-status-active: var(--pb-d-status-active);
+  --pb-status-neutral: var(--pb-d-status-neutral);
+  --pb-status-pass-wash: var(--pb-d-status-pass-wash);
+  --pb-status-warn-wash: var(--pb-d-status-warn-wash);
+  --pb-status-hole-wash: var(--pb-d-status-hole-wash);
+  --pb-status-fail-wash: var(--pb-d-status-fail-wash);
+  --pb-status-active-wash: var(--pb-d-status-active-wash);
+  --pb-status-neutral-wash: var(--pb-d-status-neutral-wash);
+  --pb-on-status: var(--pb-d-on-status);
+  --pb-series-1: var(--pb-d-series-1);
+  --pb-series-2: var(--pb-d-series-2);
+  --pb-series-3: var(--pb-d-series-3);
+  --pb-series-4: var(--pb-d-series-4);
+  --pb-series-5: var(--pb-d-series-5);
+  --pb-series-6: var(--pb-d-series-6);
+  --pb-series-other: var(--pb-d-series-other);
+  --pb-on-series-1: var(--pb-d-on-series-1);
+  --pb-on-series-2: var(--pb-d-on-series-2);
+  --pb-on-series-3: var(--pb-d-on-series-3);
+  --pb-on-series-4: var(--pb-d-on-series-4);
+  --pb-on-series-5: var(--pb-d-on-series-5);
+  --pb-on-series-6: var(--pb-d-on-series-6);
+  --pb-on-series-other: var(--pb-d-on-series-other);
+  --pb-seq-1: var(--pb-d-seq-1);
+  --pb-seq-2: var(--pb-d-seq-2);
+  --pb-seq-3: var(--pb-d-seq-3);
+  --pb-seq-4: var(--pb-d-seq-4);
+  --pb-seq-5: var(--pb-d-seq-5);
+  --pb-ord-1: var(--pb-d-ord-1);
+  --pb-ord-2: var(--pb-d-ord-2);
+  --pb-ord-3: var(--pb-d-ord-3);
+  --pb-ord-4: var(--pb-d-ord-4);
+  --pb-ord-5: var(--pb-d-ord-5);
+  --pb-div-neg-3: var(--pb-d-div-neg-3);
+  --pb-div-neg-2: var(--pb-d-div-neg-2);
+  --pb-div-neg-1: var(--pb-d-div-neg-1);
+  --pb-div-mid: var(--pb-d-div-mid);
+  --pb-div-pos-1: var(--pb-d-div-pos-1);
+  --pb-div-pos-2: var(--pb-d-div-pos-2);
+  --pb-div-pos-3: var(--pb-d-div-pos-3);
+  --pb-wash-hover: var(--pb-d-wash-hover);
+  --pb-wash-selected: var(--pb-d-wash-selected);
+}
+
+/* ---------------------------------------------------------------------------
+   4. Tailwind theme. `inline` is required because every value below is a
+   var() reference: it makes `bg-surface-1` emit `var(--pb-surface-1)` directly,
+   so the alias flip above (and the print override) applies wherever the
+   utility is used rather than being frozen at :root.
+   --------------------------------------------------------------------------- */
+@theme inline {
+  --color-plane: var(--pb-plane);
+  --color-surface-1: var(--pb-surface-1);
+  --color-surface-2: var(--pb-surface-2);
+  --color-surface-3: var(--pb-surface-3);
+
+  --color-ink: var(--pb-ink);
+  --color-ink-muted: var(--pb-ink-muted);
+  --color-ink-faint: var(--pb-ink-faint);
+  --color-ink-inverse: var(--pb-ink-inverse);
+
+  --color-hairline: var(--pb-hairline);
+  --color-hairline-strong: var(--pb-hairline-strong);
+  --color-grid: var(--pb-grid);
+  --color-axis: var(--pb-axis);
+
+  --color-accent: var(--pb-accent);
+  --color-accent-hover: var(--pb-accent-hover);
+  --color-accent-wash: var(--pb-accent-wash);
+  --color-on-accent: var(--pb-on-accent);
+
+  --color-status-pass: var(--pb-status-pass);
+  --color-status-warn: var(--pb-status-warn);
+  --color-status-hole: var(--pb-status-hole);
+  --color-status-fail: var(--pb-status-fail);
+  --color-status-active: var(--pb-status-active);
+  --color-status-neutral: var(--pb-status-neutral);
+  --color-status-pass-wash: var(--pb-status-pass-wash);
+  --color-status-warn-wash: var(--pb-status-warn-wash);
+  --color-status-hole-wash: var(--pb-status-hole-wash);
+  --color-status-fail-wash: var(--pb-status-fail-wash);
+  --color-status-active-wash: var(--pb-status-active-wash);
+  --color-status-neutral-wash: var(--pb-status-neutral-wash);
+  --color-on-status: var(--pb-on-status);
+
+  --color-series-1: var(--pb-series-1);
+  --color-series-2: var(--pb-series-2);
+  --color-series-3: var(--pb-series-3);
+  --color-series-4: var(--pb-series-4);
+  --color-series-5: var(--pb-series-5);
+  --color-series-6: var(--pb-series-6);
+  --color-series-other: var(--pb-series-other);
+  --color-on-series-1: var(--pb-on-series-1);
+  --color-on-series-2: var(--pb-on-series-2);
+  --color-on-series-3: var(--pb-on-series-3);
+  --color-on-series-4: var(--pb-on-series-4);
+  --color-on-series-5: var(--pb-on-series-5);
+  --color-on-series-6: var(--pb-on-series-6);
+  --color-on-series-other: var(--pb-on-series-other);
+
+  --color-seq-1: var(--pb-seq-1);
+  --color-seq-2: var(--pb-seq-2);
+  --color-seq-3: var(--pb-seq-3);
+  --color-seq-4: var(--pb-seq-4);
+  --color-seq-5: var(--pb-seq-5);
+
+  --color-ord-1: var(--pb-ord-1);
+  --color-ord-2: var(--pb-ord-2);
+  --color-ord-3: var(--pb-ord-3);
+  --color-ord-4: var(--pb-ord-4);
+  --color-ord-5: var(--pb-ord-5);
+
+  --color-div-neg-3: var(--pb-div-neg-3);
+  --color-div-neg-2: var(--pb-div-neg-2);
+  --color-div-neg-1: var(--pb-div-neg-1);
+  --color-div-mid: var(--pb-div-mid);
+  --color-div-pos-1: var(--pb-div-pos-1);
+  --color-div-pos-2: var(--pb-div-pos-2);
+  --color-div-pos-3: var(--pb-div-pos-3);
+
+  --color-wash-hover: var(--pb-wash-hover);
+  --color-wash-selected: var(--pb-wash-selected);
+}
+
+/* Tailwind v4 configures itself from CSS, not a JS config file. Non-colour
+   additions live in a plain @theme block. The type scale is deliberately
+   short and small: dense is the goal, and a build report needs three text
+   sizes, not seven. */
 @theme {
   --font-sans:
     system-ui, -apple-system, 'Segoe UI Variable Display', 'Segoe UI', Roboto, sans-serif;
   --font-mono:
     ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
 
+  --text-3xs: 0.625rem;
+  --text-3xs--line-height: 0.875rem;
   --text-2xs: 0.6875rem;
   --text-2xs--line-height: 1rem;
+
+  /* the row rhythm a one-line dense table row occupies, and the gutter
+     between panels; naming them keeps the compact scale from drifting */
+  --spacing-row: 1.625rem;
+  --spacing-gutter: 0.75rem;
+
+  --radius-hair: 2px;
 }
 
-/* Mantine owns the colour scheme: it stamps `data-mantine-color-scheme` on the
-   root element and exposes CSS variables. Bridging the page surface to those
-   variables keeps Tailwind-styled and Mantine-styled areas on the same
-   background in both schemes, without a second source of truth for colour. */
-:root {
-  --app-surface: var(--mantine-color-body);
-  --app-text: var(--mantine-color-text);
+/* ---------------------------------------------------------------------------
+   5. Semantic utilities. All are prefixed `pb-` so nothing can collide with a
+   generated Tailwind utility.
+   --------------------------------------------------------------------------- */
+
+/* Hairline rings are inset box-shadows, not borders: they take no part in
+   layout, so a panel's content box never shifts by a pixel when the chrome
+   changes, and the line stays visually lighter than any data ink. */
+@utility pb-hairline {
+  box-shadow: inset 0 0 0 1px var(--pb-hairline);
+}
+@utility pb-hairline-strong {
+  box-shadow: inset 0 0 0 1px var(--pb-hairline-strong);
+}
+@utility pb-hairline-t {
+  box-shadow: inset 0 1px 0 0 var(--pb-hairline);
+}
+@utility pb-hairline-b {
+  box-shadow: inset 0 -1px 0 0 var(--pb-hairline);
+}
+@utility pb-hairline-accent {
+  box-shadow: inset 0 0 0 1px var(--pb-accent);
 }
 
+/* Every column of figures. Without this, dense numeric rows do not line up and
+   the whole report becomes hard to scan. */
+@utility pb-figures {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+/* Identifiers, paths, revisions, filenames and configuration values: a goal
+   name, an oscode, a git rev and a config.mk key all render mono. */
+@utility pb-ident {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+}
+
+@utility pb-focus {
+  outline: 2px solid var(--pb-accent);
+  outline-offset: 1px;
+}
+
+/* The texture channel, not decoration: a hole behind the frontier must be
+   distinguishable from a pending phase without relying on hue, and must
+   survive a monochrome print. Hard-stop two-tone stripes, no soft blend. */
+@utility pb-hatch {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--pb-hatch-ink) 0 1px,
+    transparent 1px 5px
+  );
+}
+
+/* ---------------------------------------------------------------------------
+   6. Mantine bridge. Mantine owns interactive controls; the token layer owns
+   colour. Handing Mantine our surfaces here means a Select or a Tooltip sits
+   on the same plane as everything around it without any call site passing a
+   colour prop. One block covers both schemes because --pb-* has already
+   switched; the selector list matches Mantine's own specificity so these win.
+   --------------------------------------------------------------------------- */
+:root,
+:root[data-mantine-color-scheme='light'],
+:root[data-mantine-color-scheme='dark'] {
+  --mantine-color-body: var(--pb-surface-1);
+  --mantine-color-text: var(--pb-ink);
+  --mantine-color-dimmed: var(--pb-ink-muted);
+  --mantine-color-default: var(--pb-surface-2);
+  --mantine-color-default-hover: var(--pb-surface-3);
+  --mantine-color-default-color: var(--pb-ink);
+  --mantine-color-default-border: var(--pb-hairline-strong);
+  --mantine-color-anchor: var(--pb-accent);
+  --mantine-color-placeholder: var(--pb-ink-faint);
+  --mantine-primary-color-filled: var(--pb-accent);
+  --mantine-primary-color-filled-hover: var(--pb-accent-hover);
+  --mantine-primary-color-light: var(--pb-accent-wash);
+  --mantine-primary-color-light-hover: var(--pb-accent-wash);
+  --mantine-primary-color-light-color: var(--pb-accent);
+  --mantine-primary-color-contrast: var(--pb-on-accent);
+}
+
+/* ---------------------------------------------------------------------------
+   7. Base element styles.
+   --------------------------------------------------------------------------- */
 html {
   font-size: 16px;
+  color-scheme: light;
+}
+
+html[data-mantine-color-scheme='dark'] {
+  color-scheme: dark;
 }
 
 html,
@@ -40,16 +594,38 @@ body,
 
 body {
   margin: 0;
-  background-color: var(--app-surface);
-  color: var(--app-text);
+  background-color: var(--pb-plane);
+  color: var(--pb-ink);
   font-family: var(--font-sans);
+  font-size: 0.8125rem;
+  line-height: 1.45;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 @layer base {
   code,
-  pre {
+  pre,
+  kbd,
+  samp {
     font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  /* Numeric columns are the most common content in the app; making tabular
+     figures the table default means a view author cannot forget them. */
+  table {
+    font-variant-numeric: tabular-nums lining-nums;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--pb-accent);
+    outline-offset: 1px;
+  }
+
+  ::selection {
+    background-color: var(--pb-wash-selected);
   }
 }
