@@ -1,16 +1,15 @@
 # Task: Visual language and shared primitives for a dense technical build report
 
-**Status:** PLANNED
+**Status:** ACTIVE
 **Issue:** [docs/panther-build-dashboard-prototype-brief-v3.md](../../docs/panther-build-dashboard-prototype-brief-v3.md) — "Visual Direction", "Failed Steps and Attempt History" (redundant cues), "Print, Export, and Deep Linking"
 **Branch:** main (no feature branches yet)
 
 ## Goal
 
-Establish the design system the whole prototype is built from, so the result reads as a **lab notebook
-
-- CI/build report + release review tool** rather than a business analytics dashboard. "Done" means a
-  component author has a token for every colour, a primitive for every recurring shape, and no reason
-  to reach for a hex value or a decorative card.
+Establish the design system the whole prototype is built from, so the result reads as
+**"lab notebook, CI/build report, release review tool"** rather than a business analytics dashboard.
+"Done" means a component author has a token for every colour, a primitive for every recurring shape,
+and no reason to reach for a hex value or a decorative card.
 
 This plan ships primitives and tokens only — no build-specific views.
 
@@ -152,6 +151,50 @@ Each must handle an absent/unknown value without collapsing to a zero or an empt
 - None currently.
 
 ## Notes
+
+### DEFERRED: the chart-library decision
+
+The chart layer is hand-rolled inline SVG on a shared `ChartFrame` chassis, with scales, nice-ticks
+and band layout implemented in `charts/scales.ts` (188 lines). **This is a deliberate deferral, not a
+settled decision** — reviewed 2026-08-27 and left as-is to reach an MVP, to be revisited before the
+prototype is treated as a baseline.
+
+What the review established:
+
+- **Two of the six visuals have no library answer at all.** The phase timeline is a Gantt over
+  artifact times (off-the-shelf only in commercial Highcharts Gantt / amCharts, or an ECharts
+  `custom` series), and the phase spine is a UI component rather than a chart. Those stay hand-rolled
+  under any choice.
+- **The token architecture conflicts with the component libraries.** The rule that no colour literal
+  may live outside `src/index.css`, plus scheme-flipping via `[data-mantine-color-scheme]`, works for
+  free in hand-rolled SVG (`fill="var(--pb-series-1)"`). Recharts, Nivo and ECharts all want concrete
+  colour values in JS props or a JS theme object, which means either breaking the rule or reading
+  computed CSS variables in JS and re-rendering on theme change.
+- **The mark specs fight library defaults.** A 2px gap _in the surface colour_ between stacked
+  segments (not a stroke), bar thickness capped with the band's leftover left as air, solid hairline
+  gridlines only, text never wearing the series colour, a table-view twin per chart.
+- **Where the current approach is genuinely weak:** `scales.ts` reimplements `d3-scale`'s
+  `scaleLinear().nice()` / `ticks()` / `scaleBand()` for no product value, and it is exactly where a
+  `NaN` in an SVG coordinate — which blanks a chart silently rather than throwing — would live. Plan
+  06's stepped stacked area wants `d3-shape.stack()`, and plan 05's beeswarm over 131 species is the
+  one place a component library (Nivo's `swarmplot`) clearly wins.
+
+The recommended change when this is revisited, in order of confidence:
+
+1. Add `d3-scale` + `d3-shape` + `d3-array` (~11 kB gzip, tree-shakeable, no React coupling, no
+   colour opinions), delete `scales.ts`, keep the markup and token-driven colour. Lowest risk,
+   removes the highest-liability code.
+2. Optionally add Nivo or Apache ECharts as an _additive second renderer_ for the generic report path
+   only (plan 07), where the brief anticipates future report types — tree quality, GO annotation
+   summaries, Pfam coverage, ortholog statistics — and breadth matters more than pixel control.
+   ECharts has the widest range of any free option; Nivo is the more React-idiomatic and has the
+   beeswarm. Keep the spine, timeline and preamble hand-rolled either way.
+
+Also worth noting: `@mantine/charts` is Recharts-based, already theme-compatible with the Mantine v9
+this project uses, and ships keyboard-navigable accessibility by default. Its range covers four of
+the six visuals but not the beeswarm or the Gantt.
+
+### The visual constraints
 
 - The brief's Avoid list is a real constraint, not taste: **no** card-on-gray Mantine styling, **no**
   colourful KPI cards, **no** gradients, **no** analytics aesthetics, **no** large decorative empty
