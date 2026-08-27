@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+/* Tailwind's `dark:` variant defaults to `prefers-color-scheme`, which would
+   ignore the in-app colour-scheme toggle and leave Tailwind-styled elements
+   light while Mantine-styled ones went dark. Point the variant at the attribute
+   Mantine actually stamps on the root element so one switch drives both. */
+@custom-variant dark (&:where([data-mantine-color-scheme='dark'], [data-mantine-color-scheme='dark'] *));
+
+/* Tailwind v4 configures itself from CSS, not a JS config file — extend the
+   design system here with `@theme`. Values declared here become utilities
+   (`font-sans`, `text-2xs`, `bg-surface`, …). */
+@theme {
+  --font-sans:
+    system-ui, -apple-system, 'Segoe UI Variable Display', 'Segoe UI', Roboto, sans-serif;
+  --font-mono:
+    ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+}
+
+/* Mantine owns the colour scheme: it stamps `data-mantine-color-scheme` on the
+   root element and exposes CSS variables. Bridging the page surface to those
+   variables keeps Tailwind-styled and Mantine-styled areas on the same
+   background in both schemes, without a second source of truth for colour. */
+:root {
+  --app-surface: var(--mantine-color-body);
+  --app-text: var(--mantine-color-text);
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--app-surface);
+  color: var(--app-text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@layer base {
+  code,
+  pre {
+    font-family: var(--font-mono);
+  }
+}
