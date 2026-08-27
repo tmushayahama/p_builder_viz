@@ -1,0 +1,2598 @@
+{
+  "schema_version": 1,
+  "target": "target",
+  "generated_at": "2026-08-20T23:26:31Z",
+  "sections": [
+    {
+      "id": "config_ledger",
+      "title": "Build configuration",
+      "data": {
+        "current": {
+          "generated_at": "2026-08-16T16:35:48Z",
+          "panther_build_git_rev": "7f1ab73e485e5285d2ff53e512a9c3a380863dcd",
+          "panther_build_dirty": true,
+          "config_file": "config.mk",
+          "config_file_contents": "#export QFO_DATA_DIR=QfO_release_2026_02/external_data/qfo_reference_proteome\nexport QFO_DATA_DIR=ref_prot_2026_01/external_data/qfo_reference_proteome\nexport PTHR_VERSION=20.0\nexport SPECIES_TREE=/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/species_pthr20_annot.nhx\nexport PREV_GENE_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/gene.dat\nexport PREV_ALL_FASTA=all_seqs_19.fasta\nexport PREV_BLAST_FASTA=pthr19_filtered_blast.fasta\nexport PREV_BUILD_FASTA_DIR=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/fasta\nexport PREV_RP_TAX_TXT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/RP_taxonomy_organism_lib.txt\nexport PREV_ORGANISM_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/organism.dat\nexport PREV_GENE_NODE_DAT=gene_node_19_no_XENTR.dat\nexport PREV_NODE_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/node.dat\nexport PREV_SF_TO_SEQ=sfToSeq_19_XENTR_dropped\nexport PREV_SF_ANNOT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/annotation_SF.dat\nexport PREV_FAMILY_NAMES=previous_family_names_19.tsv\nexport PREV_RELEASE_DIR=/project2/pdthomas_136/pdt/pdthomas/panther/famlib/rel/PANTHER19.0\nexport PREV_REL_NAMES=/project2/pdthomas_136/pdt/pdthomas/panther/famlib/rel/PANTHER19.0/globals/names.tab\nexport PREV_REF_PROT_MAPPING=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/refProteomePANTHERmapping_post_giga\nexport HMM_REBUILD_PREV_REF_PROT_MAPPING=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/refProteomePANTHERmapping_post_giga\nexport PREV_LIBRARY_SEQMAP=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/nodeForwardTracking/librarySeqMap\nexport PREV_DEV_LIB=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/famlib/dev/PANTHER19.0/lib_19.0\nexport PREV_PREV_DEV_LIB=/project2/pdthomas_136/pdt/pdthomas/panther/famlib/dev/UPL/PANTHER17.0/lib_17.0\nexport PREV_PREV_NODE_DAT=/project2/huaiyumi_14/hm/debert/PANTHER17.0/library_building/target/DBload/node.dat\nexport PREV_PATHWAY_CUR_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/pathway_curation.dat\nexport FAMILY_TREE_SPLIT_POINTS=family_tree_split_points\nexport NEW_CLUSTERS=new_clusters\nexport FAMILY_ASSIGNMENTS=rescoring_2025_family_assignments_type_set.tsv\nexport MERGED_FAMILIES=merged_families.tsv\nexport FAMILIES_TO_REMOVE=families_to_remove\nexport NEW_FAM_NUM_START=48495\nexport FAM_NUM_START_CLUSTERING=48495\nexport MAX_PTN_NUM=009232848\nexport TRIM_GENOME_LIST=new_organisms.txt\nexport TRIM_FAMILIES=trim_families.txt\nexport IBD_GAF=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/IBD\nexport GO_OBO=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/go.obo\nexport GO_PLUS=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/go-gaf.owl\nexport PC_ANNOTS_UPDATED=pthr_to_pc_for_20.txt\nexport PC_CLASS=/project2/huaiyumi_14/hm/debert/PANTHER18.0/library_building/Protein_Class_18.0\nexport PC_RELATIONSHIP=/project2/huaiyumi_14/hm/debert/PANTHER18.0/library_building/Protein_class_relationship_18\nexport PTHWY_CLASS=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/classification_pathway.dat\nexport PTHWY_RELATIONSHIP=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/pathway_relationship.dat\nexport REACTOME_ANNOT=UniProt2Reactome_All_Levels.txt\nexport REACTOME_CLS_REL=ReactomePathwaysRelation.txt\nexport HMMER_PATH=/project2/pdthomas_136/pdt/pdthomas/panther/scripts/hmmer-3.1b2/binaries/\nexport SEQ_ASSOC_PTHWY_VER=3.6.9\nexport TREERULES_PATH=/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/TreeRules\nexport UP_ANNOT_FILE=/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/accs_annotaions_report.txt\nexport HPC_ACCOUNT=pdthomas_136\nexport QFO_RELEASE_VERSION=2026_02\nexport PFAM_VERSION=36.0\nexport PTHR_FULLGO_ANNOT_TSV=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/Pthr_GO_19.0.tsv\nexport INPUT_GO_CLASS_TSV=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/inputforGOClassification.tsv\nexport GO_CLASS_REL_TSV=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/goparentchild.tsv\nexport PREV_ENH_GENE_LINK_FILE=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/enhancer_gene_link.tsv\nexport PREV_TREE_DIR=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/tree/\nexport MAFFT_PATH=/project2/huaiyumi_14/hm/debert/mafft-7.505/bin/mafft\nexport OSCODE_LKP=new_oscodes_lkp.tsv\nexport MAFFT_BINARIES=\nexport TRACK_PROCS=1\nexport BLAST_CPUS=64\n",
+          "PTHR_VERSION": "20.0",
+          "QFO_DATA_DIR": "ref_prot_2026_01/external_data/qfo_reference_proteome",
+          "SPECIES_TREE": "/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/species_pthr20_annot.nhx",
+          "PREV_RELEASE_DIR": "/project2/pdthomas_136/pdt/pdthomas/panther/famlib/rel/PANTHER19.0",
+          "PREV_NODE_DAT": "/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/node.dat",
+          "PREV_RP_TAX_TXT": "/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/RP_taxonomy_organism_lib.txt",
+          "unresolved_vars": []
+        },
+        "record_count": 1,
+        "text": "**config.mk** contents at this build:\n\n```\n#export QFO_DATA_DIR=QfO_release_2026_02/external_data/qfo_reference_proteome\nexport QFO_DATA_DIR=ref_prot_2026_01/external_data/qfo_reference_proteome\nexport PTHR_VERSION=20.0\nexport SPECIES_TREE=/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/species_pthr20_annot.nhx\nexport PREV_GENE_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/gene.dat\nexport PREV_ALL_FASTA=all_seqs_19.fasta\nexport PREV_BLAST_FASTA=pthr19_filtered_blast.fasta\nexport PREV_BUILD_FASTA_DIR=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/fasta\nexport PREV_RP_TAX_TXT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/RP_taxonomy_organism_lib.txt\nexport PREV_ORGANISM_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/organism.dat\nexport PREV_GENE_NODE_DAT=gene_node_19_no_XENTR.dat\nexport PREV_NODE_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/node.dat\nexport PREV_SF_TO_SEQ=sfToSeq_19_XENTR_dropped\nexport PREV_SF_ANNOT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/annotation_SF.dat\nexport PREV_FAMILY_NAMES=previous_family_names_19.tsv\nexport PREV_RELEASE_DIR=/project2/pdthomas_136/pdt/pdthomas/panther/famlib/rel/PANTHER19.0\nexport PREV_REL_NAMES=/project2/pdthomas_136/pdt/pdthomas/panther/famlib/rel/PANTHER19.0/globals/names.tab\nexport PREV_REF_PROT_MAPPING=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/refProteomePANTHERmapping_post_giga\nexport HMM_REBUILD_PREV_REF_PROT_MAPPING=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/refProteomePANTHERmapping_post_giga\nexport PREV_LIBRARY_SEQMAP=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/nodeForwardTracking/librarySeqMap\nexport PREV_DEV_LIB=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/famlib/dev/PANTHER19.0/lib_19.0\nexport PREV_PREV_DEV_LIB=/project2/pdthomas_136/pdt/pdthomas/panther/famlib/dev/UPL/PANTHER17.0/lib_17.0\nexport PREV_PREV_NODE_DAT=/project2/huaiyumi_14/hm/debert/PANTHER17.0/library_building/target/DBload/node.dat\nexport PREV_PATHWAY_CUR_DAT=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/pathway_curation.dat\nexport FAMILY_TREE_SPLIT_POINTS=family_tree_split_points\nexport NEW_CLUSTERS=new_clusters\nexport FAMILY_ASSIGNMENTS=rescoring_2025_family_assignments_type_set.tsv\nexport MERGED_FAMILIES=merged_families.tsv\nexport FAMILIES_TO_REMOVE=families_to_remove\nexport NEW_FAM_NUM_START=48495\nexport FAM_NUM_START_CLUSTERING=48495\nexport MAX_PTN_NUM=009232848\nexport TRIM_GENOME_LIST=new_organisms.txt\nexport TRIM_FAMILIES=trim_families.txt\nexport IBD_GAF=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/IBD\nexport GO_OBO=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/go.obo\nexport GO_PLUS=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/go-gaf.owl\nexport PC_ANNOTS_UPDATED=pthr_to_pc_for_20.txt\nexport PC_CLASS=/project2/huaiyumi_14/hm/debert/PANTHER18.0/library_building/Protein_Class_18.0\nexport PC_RELATIONSHIP=/project2/huaiyumi_14/hm/debert/PANTHER18.0/library_building/Protein_class_relationship_18\nexport PTHWY_CLASS=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/classification_pathway.dat\nexport PTHWY_RELATIONSHIP=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/pathway_relationship.dat\nexport REACTOME_ANNOT=UniProt2Reactome_All_Levels.txt\nexport REACTOME_CLS_REL=ReactomePathwaysRelation.txt\nexport HMMER_PATH=/project2/pdthomas_136/pdt/pdthomas/panther/scripts/hmmer-3.1b2/binaries/\nexport SEQ_ASSOC_PTHWY_VER=3.6.9\nexport TREERULES_PATH=/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/TreeRules\nexport UP_ANNOT_FILE=/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/accs_annotaions_report.txt\nexport HPC_ACCOUNT=pdthomas_136\nexport QFO_RELEASE_VERSION=2026_02\nexport PFAM_VERSION=36.0\nexport PTHR_FULLGO_ANNOT_TSV=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/Pthr_GO_19.0.tsv\nexport INPUT_GO_CLASS_TSV=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/inputforGOClassification.tsv\nexport GO_CLASS_REL_TSV=/project2/huaiyumi_14/hm/debert/fullgo_paint_update/2026-07-27_fullgo/goparentchild.tsv\nexport PREV_ENH_GENE_LINK_FILE=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/enhancer_gene_link.tsv\nexport PREV_TREE_DIR=/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/tree/\nexport MAFFT_PATH=/project2/huaiyumi_14/hm/debert/mafft-7.505/bin/mafft\nexport OSCODE_LKP=new_oscodes_lkp.tsv\nexport MAFFT_BINARIES=\nexport TRACK_PROCS=1\nexport BLAST_CPUS=64\n\n```",
+        "rows": [
+          {
+            "key": "PREV_NODE_DAT",
+            "value": "/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/DBload/node.dat"
+          },
+          {
+            "key": "PREV_RELEASE_DIR",
+            "value": "/project2/pdthomas_136/pdt/pdthomas/panther/famlib/rel/PANTHER19.0"
+          },
+          {
+            "key": "PREV_RP_TAX_TXT",
+            "value": "/project2/huaiyumi_14/hm/debert/PANTHER19.0/library_building/target/RP_taxonomy_organism_lib.txt"
+          },
+          {
+            "key": "PTHR_VERSION",
+            "value": "20.0"
+          },
+          {
+            "key": "QFO_DATA_DIR",
+            "value": "ref_prot_2026_01/external_data/qfo_reference_proteome"
+          },
+          {
+            "key": "SPECIES_TREE",
+            "value": "/project2/pdthomas_136/pdt/pdthomas/panther/proj/new_tree_program/version2.4/species_pthr20_annot.nhx"
+          },
+          {
+            "key": "config_file",
+            "value": "config.mk"
+          },
+          {
+            "key": "generated_at",
+            "value": "2026-08-16T16:35:48Z"
+          },
+          {
+            "key": "panther_build_dirty",
+            "value": true
+          },
+          {
+            "key": "panther_build_git_rev",
+            "value": "7f1ab73e485e5285d2ff53e512a9c3a380863dcd"
+          },
+          {
+            "key": "unresolved_vars",
+            "value": []
+          }
+        ],
+        "warnings": []
+      },
+      "message": null,
+      "status": "ok"
+    },
+    {
+      "id": "progress",
+      "title": "Pipeline progress",
+      "data": {
+        "phases": [
+          {
+            "name": "Setup & resource download",
+            "done": 2,
+            "total": 2,
+            "steps": [
+              {
+                "goal": "download_resources.touch",
+                "status": "done",
+                "mtime": 1786898148.4076207,
+                "attempts": []
+              },
+              {
+                "goal": "organism.dat",
+                "status": "done",
+                "mtime": 1786897832.0757358,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Previous library rebuild",
+            "done": 3,
+            "total": 3,
+            "steps": [
+              {
+                "goal": "prev_lib_rebuilt/refProteomePANTHERmapping_split_merged_and_removed",
+                "status": "done",
+                "mtime": 1786898169.7138028,
+                "attempts": []
+              },
+              {
+                "goal": "prev_lib_rebuilt/refProteomePANTHERmapping_single_genome_fams_removed",
+                "status": "done",
+                "mtime": 1786898316.9006386,
+                "attempts": []
+              },
+              {
+                "goal": "prev_lib_rebuilt/famlib/rel/PANTHER20.0_prev_lib_rebuilt/publish_rel_books.touch",
+                "status": "done",
+                "mtime": 1786911574.3169718,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Sequence-to-family mapping",
+            "done": 3,
+            "total": 5,
+            "steps": [
+              {
+                "goal": "validate_idmapping_step",
+                "status": "pending",
+                "mtime": null,
+                "attempts": []
+              },
+              {
+                "goal": "validate_blast_step",
+                "status": "pending",
+                "mtime": null,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_fams_corrected_by_old_long_id",
+                "status": "done",
+                "mtime": 1786925358.9829776,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_updated_hmm",
+                "status": "done",
+                "mtime": 1786928047.0327256,
+                "attempts": []
+              },
+              {
+                "goal": "tribe_mcl_reclustering.touch",
+                "status": "done",
+                "mtime": 1786934937.4094625,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Mapping cleanup pass 1",
+            "done": 3,
+            "total": 3,
+            "steps": [
+              {
+                "goal": "refProteomePANTHERmapping_families_trimmed",
+                "status": "done",
+                "mtime": 1786934953.1443088,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_dropped_dup_gene_ids",
+                "status": "done",
+                "mtime": 1786935073.5276728,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_single_genome_fams_removed",
+                "status": "done",
+                "mtime": 1786935165.1692584,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Exten build and scoring",
+            "done": 2,
+            "total": 2,
+            "steps": [
+              {
+                "goal": "exten_hmm.touch",
+                "status": "done",
+                "mtime": 1786942919.8774612,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_updated_exten",
+                "status": "done",
+                "mtime": 1786944517.1218233,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Mapping cleanup pass 2",
+            "done": 3,
+            "total": 3,
+            "steps": [
+              {
+                "goal": "refProteomePANTHERmapping_families_trimmed_round2",
+                "status": "done",
+                "mtime": 1786944548.480407,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_dropped_dup_gene_ids_round2",
+                "status": "done",
+                "mtime": 1786944655.8211253,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_single_genome_fams_removed_round2",
+                "status": "done",
+                "mtime": 1786944784.4340374,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "MSA build (orig)",
+            "done": 1,
+            "total": 1,
+            "steps": [
+              {
+                "goal": "famlib/dev/PANTHER20.0/lib_20.0/trim_align_seeded_orig.touch",
+                "status": "done",
+                "mtime": 1786947470.5520375,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Tree building (GIGA)",
+            "done": 2,
+            "total": 2,
+            "steps": [
+              {
+                "goal": "famlib/dev/PANTHER20.0/lib_20.0/giga.touch",
+                "status": "done",
+                "mtime": 1786962537.4364443,
+                "attempts": []
+              },
+              {
+                "goal": "refProteomePANTHERmapping_post_giga",
+                "status": "done",
+                "mtime": 1786962805.3541098,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Node forward tracking",
+            "done": 1,
+            "total": 1,
+            "steps": [
+              {
+                "goal": "nodeForwardTracking/nodeMapping_stats_by_genome.tsv",
+                "status": "done",
+                "mtime": 1786963362.770364,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Subfamilies, HT & orthologs",
+            "done": 4,
+            "total": 4,
+            "steps": [
+              {
+                "goal": "famlib/dev/PANTHER20.0/lib_20.0/auto_subfamily.touch",
+                "status": "done",
+                "mtime": 1786963629.2295032,
+                "attempts": []
+              },
+              {
+                "goal": "famlib/dev/PANTHER20.0/lib_20.0/listHT",
+                "status": "done",
+                "mtime": 1786963927.5121822,
+                "attempts": []
+              },
+              {
+                "goal": "orthologs.touch",
+                "status": "done",
+                "mtime": 1786963935.6747622,
+                "attempts": []
+              },
+              {
+                "goal": "enhancer_gene_link.tsv",
+                "status": "done",
+                "mtime": 1786964058.2185533,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "DB load file generation",
+            "done": 19,
+            "total": 19,
+            "steps": [
+              {
+                "goal": "DBload/organism.dat",
+                "status": "done",
+                "mtime": 1786964058.2650356,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/node.dat",
+                "status": "done",
+                "mtime": 1786964082.2144945,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/sequence_organism.dat",
+                "status": "done",
+                "mtime": 1786964094.1836078,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/identifier.dat",
+                "status": "done",
+                "mtime": 1786964224.3353636,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/annotation.dat",
+                "status": "done",
+                "mtime": 1786965228.2283127,
+                "attempts": []
+              },
+              {
+                "goal": "replace_pc_annotations.touch",
+                "status": "done",
+                "mtime": 1786965228.2751899,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/reactome_annotation.dat",
+                "status": "done",
+                "mtime": 1786965242.8789806,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/protein_class.dat",
+                "status": "done",
+                "mtime": 1786965242.94406,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/protein_class_relationship.dat",
+                "status": "done",
+                "mtime": 1786965243.0008268,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/panther_slim.dat",
+                "status": "done",
+                "mtime": 1786965247.3711548,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/panther_slim_relationship.dat",
+                "status": "done",
+                "mtime": 1786965247.4502797,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/sfToSeq",
+                "status": "done",
+                "mtime": 1786965271.1667042,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/sfToPTN",
+                "status": "done",
+                "mtime": 1786970860.2843688,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/family_names.dat",
+                "status": "done",
+                "mtime": 1786970865.376191,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/Homo_sapiens.chromosomal_location",
+                "status": "done",
+                "mtime": 1786970877.5897846,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/pathway_curation.dat",
+                "status": "done",
+                "mtime": 1786970901.8974133,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/tree_detail.dat",
+                "status": "done",
+                "mtime": 1786970906.6277635,
+                "attempts": []
+              },
+              {
+                "goal": "DBload/node_organism.dat",
+                "status": "done",
+                "mtime": 1786971074.0261717,
+                "attempts": []
+              },
+              {
+                "goal": "agg_files.touch",
+                "status": "done",
+                "mtime": 1786971559.2423134,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "New library HMM generation",
+            "done": 2,
+            "total": 2,
+            "steps": [
+              {
+                "goal": "famlib/dev/PANTHER20.0/lib_20.0/createHMM3_orig_fam_orig.touch",
+                "status": "done",
+                "mtime": 1786975582.020891,
+                "attempts": []
+              },
+              {
+                "goal": "createHMM3_sf.touch",
+                "status": "done",
+                "mtime": 1786976264.201335,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Library export products",
+            "done": 10,
+            "total": 12,
+            "steps": [
+              {
+                "goal": "TaxonConstraintsLookupSlimPlusPC.txt",
+                "status": "done",
+                "mtime": 1786979134.952892,
+                "attempts": []
+              },
+              {
+                "goal": "publish_rel_books_export.touch",
+                "status": "done",
+                "mtime": 1786984723.4784942,
+                "attempts": []
+              },
+              {
+                "goal": "ontology.touch",
+                "status": "done",
+                "mtime": 1786984723.596705,
+                "attempts": []
+              },
+              {
+                "goal": "genome_statistics",
+                "status": "done",
+                "mtime": 1786984845.2866583,
+                "attempts": []
+              },
+              {
+                "goal": "tree_rules.touch",
+                "status": "done",
+                "mtime": 1786995364.2085829,
+                "attempts": []
+              },
+              {
+                "goal": "QfO_OrthoXML.xml",
+                "status": "done",
+                "mtime": 1786995739.9659276,
+                "attempts": []
+              },
+              {
+                "goal": "ftp/PANTHER_HMM_Classification_files/PANTHER20.0_HMM_classifications",
+                "status": "done",
+                "mtime": 1786995372.2875667,
+                "attempts": []
+              },
+              {
+                "goal": "PANTHER20.0_fasta.tgz",
+                "status": "done",
+                "mtime": 1786995612.2738674,
+                "attempts": []
+              },
+              {
+                "goal": "pfam.touch",
+                "status": "done",
+                "mtime": 1786995683.3213766,
+                "attempts": []
+              },
+              {
+                "goal": "PANTHER_altVersion_gtar.touch",
+                "status": "done",
+                "mtime": 1787002896.1556664,
+                "attempts": []
+              },
+              {
+                "goal": "TreeGrafter_data/PANTHER20.0_data.tar.gz",
+                "status": "pending",
+                "mtime": null,
+                "attempts": []
+              },
+              {
+                "goal": "node_closure_files.touch",
+                "status": "pending",
+                "mtime": null,
+                "attempts": []
+              }
+            ]
+          },
+          {
+            "name": "Final packaging",
+            "done": 0,
+            "total": 2,
+            "steps": [
+              {
+                "goal": "PTHR20.0_DBload.tar.gz",
+                "status": "pending",
+                "mtime": null,
+                "attempts": []
+              },
+              {
+                "goal": "PANTHER20.0.tar.gz.touch",
+                "status": "pending",
+                "mtime": null,
+                "attempts": []
+              }
+            ]
+          }
+        ],
+        "headline": {
+          "phases_complete": 11,
+          "steps_complete": 55,
+          "steps_total": 61
+        },
+        "warnings": [
+          "ftp/PANTHER_HMM_Classification_files/PANTHER20.0_HMM_classifications is older than QfO_OrthoXML.xml, which precedes it in the build \u2014 possibly stale (driver-order heuristic, not a verified dependency)"
+        ]
+      },
+      "message": null,
+      "status": "ok"
+    },
+    {
+      "id": "mapping",
+      "title": "Sequence mapping & family assignment",
+      "data": {
+        "rows": [
+          {
+            "order": 10,
+            "stage": "id",
+            "mapping_file": "refProteomePANTHERmapping_ID",
+            "total_seqs": 2297097,
+            "assigned": 1536527,
+            "unassigned": 760570,
+            "pct_assigned": 66.9,
+            "n_families": 15683
+          },
+          {
+            "order": 20,
+            "stage": "id_pombe_syms",
+            "mapping_file": "refProteomePANTHERmapping_ID_pombe_syms",
+            "total_seqs": 2297097,
+            "assigned": 1536527,
+            "unassigned": 760570,
+            "pct_assigned": 66.9,
+            "n_families": 15683
+          },
+          {
+            "order": 30,
+            "stage": "blast",
+            "mapping_file": "refProteomePANTHERmapping_updated_blast",
+            "total_seqs": 2297097,
+            "assigned": 1620967,
+            "unassigned": 676130,
+            "pct_assigned": 70.6,
+            "n_families": 15683
+          },
+          {
+            "order": 40,
+            "stage": "fams_corrected",
+            "mapping_file": "refProteomePANTHERmapping_fams_corrected_by_old_long_id",
+            "total_seqs": 2297097,
+            "assigned": 1621058,
+            "unassigned": 676039,
+            "pct_assigned": 70.6,
+            "n_families": 15682
+          },
+          {
+            "order": 50,
+            "stage": "hmm",
+            "mapping_file": "refProteomePANTHERmapping_updated_hmm",
+            "total_seqs": 2297097,
+            "assigned": 1803155,
+            "unassigned": 493942,
+            "pct_assigned": 78.5,
+            "n_families": 15682
+          },
+          {
+            "order": 60,
+            "stage": "recluster",
+            "mapping_file": "refProteomePANTHERmapping_updated_final_after_mcl_recluster",
+            "total_seqs": 2297097,
+            "assigned": 1805726,
+            "unassigned": 491371,
+            "pct_assigned": 78.6,
+            "n_families": 15823
+          },
+          {
+            "order": 70,
+            "stage": "pass1_trim",
+            "mapping_file": "refProteomePANTHERmapping_families_trimmed",
+            "total_seqs": 2293067,
+            "assigned": 1801696,
+            "unassigned": 491371,
+            "pct_assigned": 78.6,
+            "n_families": 15823
+          },
+          {
+            "order": 80,
+            "stage": "pass1_dedup",
+            "mapping_file": "refProteomePANTHERmapping_dropped_dup_gene_ids",
+            "total_seqs": 2292027,
+            "assigned": 1800731,
+            "unassigned": 491296,
+            "pct_assigned": 78.6,
+            "n_families": 15823
+          },
+          {
+            "order": 90,
+            "stage": "pass1_single_genome",
+            "mapping_file": "refProteomePANTHERmapping_single_genome_fams_removed",
+            "total_seqs": 2291718,
+            "assigned": 1800422,
+            "unassigned": 491296,
+            "pct_assigned": 78.6,
+            "n_families": 15802
+          },
+          {
+            "order": 100,
+            "stage": "exten",
+            "mapping_file": "refProteomePANTHERmapping_updated_exten",
+            "total_seqs": 2291718,
+            "assigned": 1810309,
+            "unassigned": 481409,
+            "pct_assigned": 79.0,
+            "n_families": 15802
+          },
+          {
+            "order": 110,
+            "stage": "pass2_trim",
+            "mapping_file": "refProteomePANTHERmapping_families_trimmed_round2",
+            "total_seqs": 2291717,
+            "assigned": 1810308,
+            "unassigned": 481409,
+            "pct_assigned": 79.0,
+            "n_families": 15802
+          },
+          {
+            "order": 120,
+            "stage": "pass2_dedup",
+            "mapping_file": "refProteomePANTHERmapping_dropped_dup_gene_ids_round2",
+            "total_seqs": 2291717,
+            "assigned": 1810308,
+            "unassigned": 481409,
+            "pct_assigned": 79.0,
+            "n_families": 15802
+          },
+          {
+            "order": 130,
+            "stage": "pass2_single_genome",
+            "mapping_file": "refProteomePANTHERmapping_single_genome_fams_removed_round2",
+            "total_seqs": 2291717,
+            "assigned": 1810308,
+            "unassigned": 481409,
+            "pct_assigned": 79.0,
+            "n_families": 15802
+          },
+          {
+            "order": 140,
+            "stage": "post_giga",
+            "mapping_file": "refProteomePANTHERmapping_post_giga",
+            "total_seqs": 2291508,
+            "assigned": 1810099,
+            "unassigned": 481409,
+            "pct_assigned": 79.0,
+            "n_families": 15797
+          }
+        ],
+        "by_mechanism": [
+          {
+            "stage": "id",
+            "mechanism": "ID",
+            "count": 1536527
+          },
+          {
+            "stage": "id_pombe_syms",
+            "mechanism": "ID",
+            "count": 1536527
+          },
+          {
+            "stage": "blast",
+            "mechanism": "ID",
+            "count": 1536527
+          },
+          {
+            "stage": "blast",
+            "mechanism": "BLAST",
+            "count": 84440
+          },
+          {
+            "stage": "fams_corrected",
+            "mechanism": "ID",
+            "count": 1536618
+          },
+          {
+            "stage": "fams_corrected",
+            "mechanism": "BLAST",
+            "count": 84440
+          },
+          {
+            "stage": "hmm",
+            "mechanism": "ID",
+            "count": 1536618
+          },
+          {
+            "stage": "hmm",
+            "mechanism": "HMM_scoring",
+            "count": 182097
+          },
+          {
+            "stage": "hmm",
+            "mechanism": "BLAST",
+            "count": 84440
+          },
+          {
+            "stage": "recluster",
+            "mechanism": "ID",
+            "count": 1536618
+          },
+          {
+            "stage": "recluster",
+            "mechanism": "HMM_scoring",
+            "count": 182097
+          },
+          {
+            "stage": "recluster",
+            "mechanism": "BLAST",
+            "count": 84440
+          },
+          {
+            "stage": "recluster",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "pass1_trim",
+            "mechanism": "ID",
+            "count": 1536618
+          },
+          {
+            "stage": "pass1_trim",
+            "mechanism": "HMM_scoring",
+            "count": 178067
+          },
+          {
+            "stage": "pass1_trim",
+            "mechanism": "BLAST",
+            "count": 84440
+          },
+          {
+            "stage": "pass1_trim",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "pass1_dedup",
+            "mechanism": "ID",
+            "count": 1536597
+          },
+          {
+            "stage": "pass1_dedup",
+            "mechanism": "HMM_scoring",
+            "count": 177126
+          },
+          {
+            "stage": "pass1_dedup",
+            "mechanism": "BLAST",
+            "count": 84437
+          },
+          {
+            "stage": "pass1_dedup",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "pass1_single_genome",
+            "mechanism": "ID",
+            "count": 1536303
+          },
+          {
+            "stage": "pass1_single_genome",
+            "mechanism": "HMM_scoring",
+            "count": 177112
+          },
+          {
+            "stage": "pass1_single_genome",
+            "mechanism": "BLAST",
+            "count": 84436
+          },
+          {
+            "stage": "pass1_single_genome",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "exten",
+            "mechanism": "ID",
+            "count": 1536303
+          },
+          {
+            "stage": "exten",
+            "mechanism": "HMM_scoring",
+            "count": 186999
+          },
+          {
+            "stage": "exten",
+            "mechanism": "BLAST",
+            "count": 84436
+          },
+          {
+            "stage": "exten",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "pass2_trim",
+            "mechanism": "ID",
+            "count": 1536303
+          },
+          {
+            "stage": "pass2_trim",
+            "mechanism": "HMM_scoring",
+            "count": 186998
+          },
+          {
+            "stage": "pass2_trim",
+            "mechanism": "BLAST",
+            "count": 84436
+          },
+          {
+            "stage": "pass2_trim",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "pass2_dedup",
+            "mechanism": "ID",
+            "count": 1536303
+          },
+          {
+            "stage": "pass2_dedup",
+            "mechanism": "HMM_scoring",
+            "count": 186998
+          },
+          {
+            "stage": "pass2_dedup",
+            "mechanism": "BLAST",
+            "count": 84436
+          },
+          {
+            "stage": "pass2_dedup",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "pass2_single_genome",
+            "mechanism": "ID",
+            "count": 1536303
+          },
+          {
+            "stage": "pass2_single_genome",
+            "mechanism": "HMM_scoring",
+            "count": 186998
+          },
+          {
+            "stage": "pass2_single_genome",
+            "mechanism": "BLAST",
+            "count": 84436
+          },
+          {
+            "stage": "pass2_single_genome",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2571
+          },
+          {
+            "stage": "post_giga",
+            "mechanism": "ID",
+            "count": 1536283
+          },
+          {
+            "stage": "post_giga",
+            "mechanism": "HMM_scoring",
+            "count": 186844
+          },
+          {
+            "stage": "post_giga",
+            "mechanism": "BLAST",
+            "count": 84436
+          },
+          {
+            "stage": "post_giga",
+            "mechanism": "RECLUSTER_NEW",
+            "count": 2536
+          }
+        ],
+        "headline": {
+          "final_stage": "post_giga",
+          "final_total_seqs": 2291508,
+          "final_assigned": 1810099,
+          "final_pct_assigned": 79.0,
+          "final_n_families": 15797
+        }
+      },
+      "message": null,
+      "status": "ok"
+    },
+    {
+      "id": "node_tracking",
+      "title": "Node forward tracking",
+      "data": {
+        "by_type": [
+          {
+            "node_type": "DUPLICATION",
+            "mapped": 280581,
+            "total": 326455,
+            "pct": 85.9
+          },
+          {
+            "node_type": "HORIZ_TRANSFER",
+            "mapped": 4882,
+            "total": 5794,
+            "pct": 84.3
+          },
+          {
+            "node_type": "LEAF",
+            "mapped": 1627862,
+            "total": 1736983,
+            "pct": 93.7
+          },
+          {
+            "node_type": "SPECIATION",
+            "mapped": 916937,
+            "total": 957149,
+            "pct": 95.8
+          },
+          {
+            "node_type": "UNKNOWN",
+            "mapped": 0,
+            "total": 362,
+            "pct": 0.0
+          }
+        ],
+        "by_species": [
+          {
+            "oscode": "DAPMA",
+            "mapped": 0,
+            "total": 10504,
+            "pct": 0.0
+          },
+          {
+            "oscode": "FELCA",
+            "mapped": 11498,
+            "total": 17677,
+            "pct": 65.0
+          },
+          {
+            "oscode": "PHANO",
+            "mapped": 5790,
+            "total": 8910,
+            "pct": 65.0
+          },
+          {
+            "oscode": "POPTR",
+            "mapped": 31333,
+            "total": 46055,
+            "pct": 68.0
+          },
+          {
+            "oscode": "TOBAC",
+            "mapped": 40059,
+            "total": 54275,
+            "pct": 73.8
+          },
+          {
+            "oscode": "SPIOL",
+            "mapped": 17976,
+            "total": 23255,
+            "pct": 77.3
+          },
+          {
+            "oscode": "MANES",
+            "mapped": 23270,
+            "total": 29952,
+            "pct": 77.7
+          },
+          {
+            "oscode": "BOVIN",
+            "mapped": 17701,
+            "total": 22763,
+            "pct": 77.8
+          },
+          {
+            "oscode": "GOSHI",
+            "mapped": 48577,
+            "total": 60663,
+            "pct": 80.1
+          },
+          {
+            "oscode": "HELAN",
+            "mapped": 44250,
+            "total": 50114,
+            "pct": 88.3
+          },
+          {
+            "oscode": "HORVV",
+            "mapped": 25872,
+            "total": 28830,
+            "pct": 89.7
+          },
+          {
+            "oscode": "DANRE",
+            "mapped": 22099,
+            "total": 24497,
+            "pct": 90.2
+          },
+          {
+            "oscode": "RAT",
+            "mapped": 19381,
+            "total": 20919,
+            "pct": 92.6
+          },
+          {
+            "oscode": "LACSA",
+            "mapped": 27587,
+            "total": 29630,
+            "pct": 93.1
+          },
+          {
+            "oscode": "XENTR",
+            "mapped": 18094,
+            "total": 19141,
+            "pct": 94.5
+          },
+          {
+            "oscode": "XENLA",
+            "mapped": 31370,
+            "total": 33050,
+            "pct": 94.9
+          },
+          {
+            "oscode": "ANOCA",
+            "mapped": 17727,
+            "total": 18586,
+            "pct": 95.4
+          },
+          {
+            "oscode": "PIG",
+            "mapped": 20158,
+            "total": 21075,
+            "pct": 95.6
+          },
+          {
+            "oscode": "FUSNN",
+            "mapped": 1370,
+            "total": 1422,
+            "pct": 96.3
+          },
+          {
+            "oscode": "TRIV3",
+            "mapped": 20525,
+            "total": 21219,
+            "pct": 96.7
+          },
+          {
+            "oscode": "THECC",
+            "mapped": 21382,
+            "total": 22084,
+            "pct": 96.8
+          },
+          {
+            "oscode": "KLENI",
+            "mapped": 9509,
+            "total": 9816,
+            "pct": 96.9
+          },
+          {
+            "oscode": "BRAFL",
+            "mapped": 20014,
+            "total": 20592,
+            "pct": 97.2
+          },
+          {
+            "oscode": "HORSE",
+            "mapped": 18775,
+            "total": 19272,
+            "pct": 97.4
+          },
+          {
+            "oscode": "PANTR",
+            "mapped": 20421,
+            "total": 20869,
+            "pct": 97.9
+          },
+          {
+            "oscode": "SCHJY",
+            "mapped": 3619,
+            "total": 3693,
+            "pct": 98.0
+          },
+          {
+            "oscode": "MARPO",
+            "mapped": 11359,
+            "total": 11582,
+            "pct": 98.1
+          },
+          {
+            "oscode": "GORGO",
+            "mapped": 19150,
+            "total": 19501,
+            "pct": 98.2
+          },
+          {
+            "oscode": "STRPU",
+            "mapped": 20377,
+            "total": 20719,
+            "pct": 98.3
+          },
+          {
+            "oscode": "SCHPO",
+            "mapped": 4339,
+            "total": 4412,
+            "pct": 98.3
+          },
+          {
+            "oscode": "IXOSC",
+            "mapped": 8877,
+            "total": 9017,
+            "pct": 98.4
+          },
+          {
+            "oscode": "CANLF",
+            "mapped": 19249,
+            "total": 19560,
+            "pct": 98.4
+          },
+          {
+            "oscode": "PRUPE",
+            "mapped": 22482,
+            "total": 22851,
+            "pct": 98.4
+          },
+          {
+            "oscode": "CHICK",
+            "mapped": 16679,
+            "total": 16925,
+            "pct": 98.5
+          },
+          {
+            "oscode": "MAIZE",
+            "mapped": 27972,
+            "total": 28386,
+            "pct": 98.5
+          },
+          {
+            "oscode": "JUGRE",
+            "mapped": 28245,
+            "total": 28641,
+            "pct": 98.6
+          },
+          {
+            "oscode": "NELNU",
+            "mapped": 22270,
+            "total": 22584,
+            "pct": 98.6
+          },
+          {
+            "oscode": "SORBI",
+            "mapped": 26106,
+            "total": 26441,
+            "pct": 98.7
+          },
+          {
+            "oscode": "SOLLC",
+            "mapped": 23779,
+            "total": 24090,
+            "pct": 98.7
+          },
+          {
+            "oscode": "HELRO",
+            "mapped": 12399,
+            "total": 12564,
+            "pct": 98.7
+          },
+          {
+            "oscode": "MACMU",
+            "mapped": 20373,
+            "total": 20646,
+            "pct": 98.7
+          },
+          {
+            "oscode": "VITVI",
+            "mapped": 21430,
+            "total": 21686,
+            "pct": 98.8
+          },
+          {
+            "oscode": "NEMVE",
+            "mapped": 15419,
+            "total": 15612,
+            "pct": 98.8
+          },
+          {
+            "oscode": "PRIPA",
+            "mapped": 13316,
+            "total": 13461,
+            "pct": 98.9
+          },
+          {
+            "oscode": "ANOGA",
+            "mapped": 10558,
+            "total": 10676,
+            "pct": 98.9
+          },
+          {
+            "oscode": "CIOIN",
+            "mapped": 8358,
+            "total": 8455,
+            "pct": 98.9
+          },
+          {
+            "oscode": "ORYSJ",
+            "mapped": 24639,
+            "total": 24881,
+            "pct": 99.0
+          },
+          {
+            "oscode": "BRACM",
+            "mapped": 34462,
+            "total": 34820,
+            "pct": 99.0
+          },
+          {
+            "oscode": "MYCGE",
+            "mapped": 348,
+            "total": 351,
+            "pct": 99.1
+          },
+          {
+            "oscode": "ARATH",
+            "mapped": 24101,
+            "total": 24326,
+            "pct": 99.1
+          },
+          {
+            "oscode": "PLAF7",
+            "mapped": 3330,
+            "total": 3357,
+            "pct": 99.2
+          },
+          {
+            "oscode": "ENTH1",
+            "mapped": 4703,
+            "total": 4742,
+            "pct": 99.2
+          },
+          {
+            "oscode": "SYNY3",
+            "mapped": 2407,
+            "total": 2427,
+            "pct": 99.2
+          },
+          {
+            "oscode": "PHYRM",
+            "mapped": 9987,
+            "total": 10058,
+            "pct": 99.3
+          },
+          {
+            "oscode": "WHEAT",
+            "mapped": 92604,
+            "total": 93130,
+            "pct": 99.4
+          },
+          {
+            "oscode": "DICDI",
+            "mapped": 9179,
+            "total": 9233,
+            "pct": 99.4
+          },
+          {
+            "oscode": "PUCGT",
+            "mapped": 7294,
+            "total": 7337,
+            "pct": 99.4
+          },
+          {
+            "oscode": "MOUSE",
+            "mapped": 20989,
+            "total": 21119,
+            "pct": 99.4
+          },
+          {
+            "oscode": "MONBE",
+            "mapped": 6697,
+            "total": 6739,
+            "pct": 99.4
+          },
+          {
+            "oscode": "PARTE",
+            "mapped": 20452,
+            "total": 20581,
+            "pct": 99.4
+          },
+          {
+            "oscode": "HUMAN",
+            "mapped": 19428,
+            "total": 19553,
+            "pct": 99.4
+          },
+          {
+            "oscode": "TRIAD",
+            "mapped": 8787,
+            "total": 8844,
+            "pct": 99.4
+          },
+          {
+            "oscode": "LEPOC",
+            "mapped": 16787,
+            "total": 16864,
+            "pct": 99.5
+          },
+          {
+            "oscode": "ORNAN",
+            "mapped": 16140,
+            "total": 16215,
+            "pct": 99.5
+          },
+          {
+            "oscode": "GIAIC",
+            "mapped": 2797,
+            "total": 2810,
+            "pct": 99.5
+          },
+          {
+            "oscode": "THAPS",
+            "mapped": 7246,
+            "total": 7280,
+            "pct": 99.5
+          },
+          {
+            "oscode": "BATDJ",
+            "mapped": 5865,
+            "total": 5893,
+            "pct": 99.5
+          },
+          {
+            "oscode": "ORYLA",
+            "mapped": 21471,
+            "total": 21578,
+            "pct": 99.5
+          },
+          {
+            "oscode": "CRYD1",
+            "mapped": 5358,
+            "total": 5385,
+            "pct": 99.5
+          },
+          {
+            "oscode": "MONDO",
+            "mapped": 19381,
+            "total": 19479,
+            "pct": 99.5
+          },
+          {
+            "oscode": "MEDTR",
+            "mapped": 31946,
+            "total": 32118,
+            "pct": 99.5
+          },
+          {
+            "oscode": "PHYPA",
+            "mapped": 19229,
+            "total": 19333,
+            "pct": 99.5
+          },
+          {
+            "oscode": "TRICA",
+            "mapped": 11043,
+            "total": 11084,
+            "pct": 99.6
+          },
+          {
+            "oscode": "CAEBR",
+            "mapped": 13938,
+            "total": 13990,
+            "pct": 99.6
+          },
+          {
+            "oscode": "NITMS",
+            "mapped": 1064,
+            "total": 1068,
+            "pct": 99.6
+          },
+          {
+            "oscode": "GLOVI",
+            "mapped": 2901,
+            "total": 2912,
+            "pct": 99.6
+          },
+          {
+            "oscode": "DEIRA",
+            "mapped": 2086,
+            "total": 2095,
+            "pct": 99.6
+          },
+          {
+            "oscode": "CHLRE",
+            "mapped": 11987,
+            "total": 12040,
+            "pct": 99.6
+          },
+          {
+            "oscode": "CAEEL",
+            "mapped": 14392,
+            "total": 14431,
+            "pct": 99.7
+          },
+          {
+            "oscode": "BRADI",
+            "mapped": 26225,
+            "total": 26301,
+            "pct": 99.7
+          },
+          {
+            "oscode": "HELPY",
+            "mapped": 966,
+            "total": 969,
+            "pct": 99.7
+          },
+          {
+            "oscode": "CLOBH",
+            "mapped": 2529,
+            "total": 2537,
+            "pct": 99.7
+          },
+          {
+            "oscode": "SCLS1",
+            "mapped": 7178,
+            "total": 7201,
+            "pct": 99.7
+          },
+          {
+            "oscode": "SOYBN",
+            "mapped": 46907,
+            "total": 47067,
+            "pct": 99.7
+          },
+          {
+            "oscode": "DICPU",
+            "mapped": 8481,
+            "total": 8510,
+            "pct": 99.7
+          },
+          {
+            "oscode": "TRYB2",
+            "mapped": 4647,
+            "total": 4663,
+            "pct": 99.7
+          },
+          {
+            "oscode": "CHLTR",
+            "mapped": 614,
+            "total": 615,
+            "pct": 99.8
+          },
+          {
+            "oscode": "SACS2",
+            "mapped": 1825,
+            "total": 1828,
+            "pct": 99.8
+          },
+          {
+            "oscode": "EMENI",
+            "mapped": 8161,
+            "total": 8175,
+            "pct": 99.8
+          },
+          {
+            "oscode": "CANAL",
+            "mapped": 4812,
+            "total": 4821,
+            "pct": 99.8
+          },
+          {
+            "oscode": "THEYD",
+            "mapped": 1556,
+            "total": 1559,
+            "pct": 99.8
+          },
+          {
+            "oscode": "YARLI",
+            "mapped": 5124,
+            "total": 5134,
+            "pct": 99.8
+          },
+          {
+            "oscode": "EREGS",
+            "mapped": 3963,
+            "total": 3971,
+            "pct": 99.8
+          },
+          {
+            "oscode": "HALSA",
+            "mapped": 1477,
+            "total": 1480,
+            "pct": 99.8
+          },
+          {
+            "oscode": "THEMA",
+            "mapped": 1474,
+            "total": 1477,
+            "pct": 99.8
+          },
+          {
+            "oscode": "THEKO",
+            "mapped": 1443,
+            "total": 1446,
+            "pct": 99.8
+          },
+          {
+            "oscode": "PSEAE",
+            "mapped": 4404,
+            "total": 4414,
+            "pct": 99.8
+          },
+          {
+            "oscode": "XANCP",
+            "mapped": 3007,
+            "total": 3014,
+            "pct": 99.8
+          },
+          {
+            "oscode": "LEPIN",
+            "mapped": 2141,
+            "total": 2146,
+            "pct": 99.8
+          },
+          {
+            "oscode": "MYCMD",
+            "mapped": 5364,
+            "total": 5377,
+            "pct": 99.8
+          },
+          {
+            "oscode": "STAA8",
+            "mapped": 1872,
+            "total": 1873,
+            "pct": 99.9
+          },
+          {
+            "oscode": "ECOLI",
+            "mapped": 3419,
+            "total": 3421,
+            "pct": 99.9
+          },
+          {
+            "oscode": "NEIMB",
+            "mapped": 1343,
+            "total": 1344,
+            "pct": 99.9
+          },
+          {
+            "oscode": "PYRAE",
+            "mapped": 1342,
+            "total": 1343,
+            "pct": 99.9
+          },
+          {
+            "oscode": "GEOSL",
+            "mapped": 2552,
+            "total": 2554,
+            "pct": 99.9
+          },
+          {
+            "oscode": "AQUAE",
+            "mapped": 1213,
+            "total": 1214,
+            "pct": 99.9
+          },
+          {
+            "oscode": "COXBU",
+            "mapped": 1188,
+            "total": 1189,
+            "pct": 99.9
+          },
+          {
+            "oscode": "KORCO",
+            "mapped": 1171,
+            "total": 1172,
+            "pct": 99.9
+          },
+          {
+            "oscode": "SALTY",
+            "mapped": 3466,
+            "total": 3469,
+            "pct": 99.9
+          },
+          {
+            "oscode": "METJA",
+            "mapped": 1146,
+            "total": 1147,
+            "pct": 99.9
+          },
+          {
+            "oscode": "BACSU",
+            "mapped": 2969,
+            "total": 2972,
+            "pct": 99.9
+          },
+          {
+            "oscode": "YEAST",
+            "mapped": 4763,
+            "total": 4768,
+            "pct": 99.9
+          },
+          {
+            "oscode": "VIBCH",
+            "mapped": 2736,
+            "total": 2739,
+            "pct": 99.9
+          },
+          {
+            "oscode": "BACCR",
+            "mapped": 3517,
+            "total": 3521,
+            "pct": 99.9
+          },
+          {
+            "oscode": "NEUCR",
+            "mapped": 6877,
+            "total": 6885,
+            "pct": 99.9
+          },
+          {
+            "oscode": "RHOBA",
+            "mapped": 3292,
+            "total": 3296,
+            "pct": 99.9
+          },
+          {
+            "oscode": "BRADU",
+            "mapped": 5546,
+            "total": 5553,
+            "pct": 99.9
+          },
+          {
+            "oscode": "BACTN",
+            "mapped": 3015,
+            "total": 3019,
+            "pct": 99.9
+          },
+          {
+            "oscode": "DICTD",
+            "mapped": 1441,
+            "total": 1443,
+            "pct": 99.9
+          },
+          {
+            "oscode": "STRR6",
+            "mapped": 1437,
+            "total": 1439,
+            "pct": 99.9
+          },
+          {
+            "oscode": "HAEIN",
+            "mapped": 1405,
+            "total": 1407,
+            "pct": 99.9
+          },
+          {
+            "oscode": "ASPFU",
+            "mapped": 7704,
+            "total": 7715,
+            "pct": 99.9
+          },
+          {
+            "oscode": "DROME",
+            "mapped": 10987,
+            "total": 11003,
+            "pct": 99.9
+          },
+          {
+            "oscode": "STRCO",
+            "mapped": 5476,
+            "total": 5484,
+            "pct": 99.9
+          },
+          {
+            "oscode": "MYCTU",
+            "mapped": 2682,
+            "total": 2686,
+            "pct": 99.9
+          },
+          {
+            "oscode": "SHEON",
+            "mapped": 3006,
+            "total": 3006,
+            "pct": 100.0
+          },
+          {
+            "oscode": "LISMO",
+            "mapped": 2192,
+            "total": 2192,
+            "pct": 100.0
+          },
+          {
+            "oscode": "CHLAA",
+            "mapped": 2909,
+            "total": 2909,
+            "pct": 100.0
+          },
+          {
+            "oscode": "YERPE",
+            "mapped": 2917,
+            "total": 2918,
+            "pct": 100.0
+          },
+          {
+            "oscode": "METAC",
+            "mapped": 2730,
+            "total": 2731,
+            "pct": 100.0
+          },
+          {
+            "oscode": "LEIMA",
+            "mapped": 5119,
+            "total": 5121,
+            "pct": 100.0
+          }
+        ],
+        "rows": [
+          {
+            "node_type": "DUPLICATION",
+            "mapped": 280581,
+            "total": 326455,
+            "pct": 85.9
+          },
+          {
+            "node_type": "HORIZ_TRANSFER",
+            "mapped": 4882,
+            "total": 5794,
+            "pct": 84.3
+          },
+          {
+            "node_type": "LEAF",
+            "mapped": 1627862,
+            "total": 1736983,
+            "pct": 93.7
+          },
+          {
+            "node_type": "SPECIATION",
+            "mapped": 916937,
+            "total": 957149,
+            "pct": 95.8
+          },
+          {
+            "node_type": "UNKNOWN",
+            "mapped": 0,
+            "total": 362,
+            "pct": 0.0
+          }
+        ],
+        "headline": {
+          "nodes_mapped": 2830262,
+          "nodes_total": 3026743,
+          "pct_mapped": 93.5,
+          "species_reported": 131
+        },
+        "warnings": []
+      },
+      "message": null,
+      "status": "ok"
+    },
+    {
+      "id": "library",
+      "title": "New library contents",
+      "data": {
+        "headline": {
+          "genomes": 131,
+          "sequences": 1736983,
+          "families": 15797,
+          "subfamilies": 111848
+        },
+        "rows": [
+          {
+            "metric": "genomes",
+            "value": 131
+          },
+          {
+            "metric": "sequences",
+            "value": 1736983
+          },
+          {
+            "metric": "families",
+            "value": 15797
+          },
+          {
+            "metric": "subfamilies",
+            "value": 111848
+          }
+        ]
+      },
+      "message": null,
+      "status": "ok"
+    },
+    {
+      "id": "prev_lib",
+      "title": "Comparison to previous library",
+      "data": null,
+      "message": "inputs not present yet",
+      "status": "absent"
+    },
+    {
+      "id": "giga",
+      "title": "Tree building (GIGA)",
+      "data": {
+        "text": "15797 of 15797 books have a usable (non-empty) tree; 0 came back empty.",
+        "headline": {
+          "books_total": 15797,
+          "trees_built": 15797,
+          "empty_trees": 0,
+          "trees_succeeded": 15797
+        },
+        "rows": [
+          {
+            "metric": "books_total",
+            "value": 15797
+          },
+          {
+            "metric": "trees_built",
+            "value": 15797
+          },
+          {
+            "metric": "empty_trees",
+            "value": 0
+          },
+          {
+            "metric": "trees_succeeded",
+            "value": 15797
+          }
+        ]
+      },
+      "message": null,
+      "status": "ok"
+    },
+    {
+      "id": "other_reports",
+      "title": "Other reports",
+      "data": {
+        "text": "4 of 4 report(s) shown.",
+        "rows": [
+          {
+            "metric": "prev_lib_sequences",
+            "value": 2692827
+          },
+          {
+            "metric": "new_lib_sequences",
+            "value": 2297097
+          },
+          {
+            "metric": "species_total",
+            "value": 147
+          },
+          {
+            "metric": "prev_uniprot_proteomes",
+            "value": 131
+          },
+          {
+            "metric": "prev_uniprot_total_seqs",
+            "value": 2297097
+          },
+          {
+            "metric": "prev_uniprot_same_uniprot",
+            "value": 2079348
+          },
+          {
+            "metric": "prev_uniprot_pct_same",
+            "value": 90.5
+          },
+          {
+            "metric": "unirules_in_multiple_families",
+            "value": 813
+          },
+          {
+            "metric": "blast_sequences_checked",
+            "value": 97438
+          },
+          {
+            "metric": "blast_lengths_compared",
+            "value": 67972
+          },
+          {
+            "metric": "blast_length_ratio_outliers",
+            "value": 0
+          },
+          {
+            "metric": "blast_avg_len_quotient",
+            "value": 0.9985830653026136
+          }
+        ],
+        "tables": [
+          {
+            "name": "Sequence counts by species, previous vs new",
+            "columns": [
+              "species",
+              "prev_count",
+              "new_count",
+              "count_diff",
+              "pct_change"
+            ],
+            "rows": [
+              {
+                "species": "BRANA",
+                "prev_count": "57383",
+                "new_count": "0",
+                "count_diff": "-57383",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "SOLTU",
+                "prev_count": "38894",
+                "new_count": "0",
+                "count_diff": "-38894",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "EUCGR",
+                "prev_count": "36474",
+                "new_count": "0",
+                "count_diff": "-36474",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "SETIT",
+                "prev_count": "35379",
+                "new_count": "0",
+                "count_diff": "-35379",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "CAPAN",
+                "prev_count": "35139",
+                "new_count": "0",
+                "count_diff": "-35139",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "MUSAM",
+                "prev_count": "34845",
+                "new_count": "0",
+                "count_diff": "-34845",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "SELML",
+                "prev_count": "33117",
+                "new_count": "0",
+                "count_diff": "-33117",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "RICCO",
+                "prev_count": "31154",
+                "new_count": "0",
+                "count_diff": "-31154",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "DAPPU",
+                "prev_count": "30118",
+                "new_count": "0",
+                "count_diff": "-30118",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "CITSI",
+                "prev_count": "27934",
+                "new_count": "0",
+                "count_diff": "-27934",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "ERYGU",
+                "prev_count": "27425",
+                "new_count": "0",
+                "count_diff": "-27425",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "AMBTC",
+                "prev_count": "27327",
+                "new_count": "0",
+                "count_diff": "-27327",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "DAPMA",
+                "prev_count": "0",
+                "new_count": "26600",
+                "count_diff": "26600",
+                "pct_change": "1.0"
+              },
+              {
+                "species": "CUCSA",
+                "prev_count": "23726",
+                "new_count": "0",
+                "count_diff": "-23726",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "ZOSMR",
+                "prev_count": "20338",
+                "new_count": "0",
+                "count_diff": "-20338",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "POPTR",
+                "prev_count": "42534",
+                "new_count": "58153",
+                "count_diff": "15619",
+                "pct_change": "0.36721211266281095"
+              },
+              {
+                "species": "HELAN",
+                "prev_count": "80656",
+                "new_count": "88555",
+                "count_diff": "7899",
+                "pct_change": "0.097934437611585"
+              },
+              {
+                "species": "MYCMD",
+                "prev_count": "0",
+                "new_count": "6788",
+                "count_diff": "6788",
+                "pct_change": "1.0"
+              },
+              {
+                "species": "USTMA",
+                "prev_count": "6788",
+                "new_count": "0",
+                "count_diff": "-6788",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "CRYD1",
+                "prev_count": "0",
+                "new_count": "6604",
+                "count_diff": "6604",
+                "pct_change": "1.0"
+              },
+              {
+                "species": "CRYNJ",
+                "prev_count": "6604",
+                "new_count": "0",
+                "count_diff": "-6604",
+                "pct_change": "-1.0"
+              },
+              {
+                "species": "GOSHI",
+                "prev_count": "60637",
+                "new_count": "66803",
+                "count_diff": "6166",
+                "pct_change": "0.10168708874119761"
+              },
+              {
+                "species": "SPIOL",
+                "prev_count": "25345",
+                "new_count": "28272",
+                "count_diff": "2927",
+                "pct_change": "0.11548628920891695"
+              },
+              {
+                "species": "MANES",
+                "prev_count": "31401",
+                "new_count": "33958",
+                "count_diff": "2557",
+                "pct_change": "0.08143052769020095"
+              },
+              {
+                "species": "JUGRE",
+                "prev_count": "32526",
+                "new_count": "30346",
+                "count_diff": "-2180",
+                "pct_change": "-0.06702330443337638"
+              },
+              {
+                "species": "WHEAT",
+                "prev_count": "103389",
+                "new_count": "105082",
+                "count_diff": "1693",
+                "pct_change": "0.016375049570070317"
+              },
+              {
+                "species": "PHANO",
+                "prev_count": "15991",
+                "new_count": "17429",
+                "count_diff": "1438",
+                "pct_change": "0.08992558314051655"
+              },
+              {
+                "species": "RAT",
+                "prev_count": "22870",
+                "new_count": "21800",
+                "count_diff": "-1070",
+                "pct_change": "-0.04678618277219064"
+              },
+              {
+                "species": "TOBAC",
+                "prev_count": "61366",
+                "new_count": "60557",
+                "count_diff": "-809",
+                "pct_change": "-0.013183195906528045"
+              },
+              {
+                "species": "XENTR",
+                "prev_count": "21445",
+                "new_count": "22019",
+                "count_diff": "574",
+                "pct_change": "0.026766145954768013"
+              },
+              {
+                "species": "XENLA",
+                "prev_count": "35860",
+                "new_count": "36391",
+                "count_diff": "531",
+                "pct_change": "0.014807585052983826"
+              },
+              {
+                "species": "FELCA",
+                "prev_count": "19653",
+                "new_count": "19179",
+                "count_diff": "-474",
+                "pct_change": "-0.024118455197679745"
+              },
+              {
+                "species": "DANRE",
+                "prev_count": "26248",
+                "new_count": "26701",
+                "count_diff": "453",
+                "pct_change": "0.01725845778725998"
+              },
+              {
+                "species": "HORSE",
+                "prev_count": "21429",
+                "new_count": "21041",
+                "count_diff": "-388",
+                "pct_change": "-0.018106304540575855"
+              },
+              {
+                "species": "MEDTR",
+                "prev_count": "49598",
+                "new_count": "49967",
+                "count_diff": "369",
+                "pct_change": "0.007439816121617807"
+              },
+              {
+                "species": "HORVV",
+                "prev_count": "34193",
+                "new_count": "34528",
+                "count_diff": "335",
+                "pct_change": "0.009797326938262218"
+              },
+              {
+                "species": "SORBI",
+                "prev_count": "33746",
+                "new_count": "34014",
+                "count_diff": "268",
+                "pct_change": "0.007941681977123215"
+              },
+              {
+                "species": "BOVIN",
+                "prev_count": "23835",
+                "new_count": "23617",
+                "count_diff": "-218",
+                "pct_change": "-0.009146213551499895"
+              },
+              {
+                "species": "BRADU",
+                "prev_count": "8048",
+                "new_count": "8253",
+                "count_diff": "205",
+                "pct_change": "0.025472166998011928"
+              },
+              {
+                "species": "VITVI",
+                "prev_count": "29570",
+                "new_count": "29757",
+                "count_diff": "187",
+                "pct_change": "0.006323977003719987"
+              },
+              {
+                "species": "PRUPE",
+                "prev_count": "26693",
+                "new_count": "26850",
+                "count_diff": "157",
+                "pct_change": "0.0058816918293185475"
+              },
+              {
+                "species": "THECC",
+                "prev_count": "29032",
+                "new_count": "29159",
+                "count_diff": "127",
+                "pct_change": "0.0043744833287407"
+              },
+              {
+                "species": "LACSA",
+                "prev_count": "44154",
+                "new_count": "44035",
+                "count_diff": "-119",
+                "pct_change": "-0.0026951125605834125"
+              },
+              {
+                "species": "BACTN",
+                "prev_count": "4667",
+                "new_count": "4782",
+                "count_diff": "115",
+                "pct_change": "0.024641097064495392"
+              },
+              {
+                "species": "THAPS",
+                "prev_count": "11717",
+                "new_count": "11611",
+                "count_diff": "-106",
+                "pct_change": "-0.009046684304856192"
+              },
+              {
+                "species": "SCHPO",
+                "prev_count": "5122",
+                "new_count": "5206",
+                "count_diff": "84",
+                "pct_change": "0.016399843811011325"
+              },
+              {
+                "species": "NELNU",
+                "prev_count": "23912",
+                "new_count": "23993",
+                "count_diff": "81",
+                "pct_change": "0.0033874205419872866"
+              },
+              {
+                "species": "HUMAN",
+                "prev_count": "20580",
+                "new_count": "20659",
+                "count_diff": "79",
+                "pct_change": "0.003838678328474247"
+              },
+              {
+                "species": "GLOVI",
+                "prev_count": "4328",
+                "new_count": "4406",
+                "count_diff": "78",
+                "pct_change": "0.018022181146025877"
+              },
+              {
+                "species": "FUSNN",
+                "prev_count": "2046",
+                "new_count": "1975",
+                "count_diff": "-71",
+                "pct_change": "-0.03470185728250244"
+              }
+            ],
+            "total_rows": 147,
+            "truncated": true,
+            "ragged_rows": 0
+          },
+          {
+            "name": "Previous-UniProt-ID match by proteome",
+            "columns": [
+              "oscode",
+              "total_seqs",
+              "same_uniprot",
+              "pct_same_uniprot",
+              "diff_uniprot",
+              "no_prev_match"
+            ],
+            "rows": [
+              {
+                "oscode": "DAPMA",
+                "total_seqs": "26600",
+                "same_uniprot": "0",
+                "pct_same_uniprot": "0.0",
+                "diff_uniprot": "0",
+                "no_prev_match": "26600"
+              },
+              {
+                "oscode": "PHANO",
+                "total_seqs": "17429",
+                "same_uniprot": "0",
+                "pct_same_uniprot": "0.0",
+                "diff_uniprot": "8144",
+                "no_prev_match": "9285"
+              },
+              {
+                "oscode": "FELCA",
+                "total_seqs": "19179",
+                "same_uniprot": "159",
+                "pct_same_uniprot": "0.8",
+                "diff_uniprot": "11991",
+                "no_prev_match": "7029"
+              },
+              {
+                "oscode": "TOBAC",
+                "total_seqs": "60557",
+                "same_uniprot": "35680",
+                "pct_same_uniprot": "58.9",
+                "diff_uniprot": "7204",
+                "no_prev_match": "17673"
+              },
+              {
+                "oscode": "MANES",
+                "total_seqs": "33958",
+                "same_uniprot": "20306",
+                "pct_same_uniprot": "59.8",
+                "diff_uniprot": "4144",
+                "no_prev_match": "9508"
+              },
+              {
+                "oscode": "BOVIN",
+                "total_seqs": "23617",
+                "same_uniprot": "14129",
+                "pct_same_uniprot": "59.8",
+                "diff_uniprot": "4005",
+                "no_prev_match": "5483"
+              },
+              {
+                "oscode": "SPIOL",
+                "total_seqs": "28272",
+                "same_uniprot": "17102",
+                "pct_same_uniprot": "60.5",
+                "diff_uniprot": "2998",
+                "no_prev_match": "8172"
+              },
+              {
+                "oscode": "POPTR",
+                "total_seqs": "58153",
+                "same_uniprot": "38052",
+                "pct_same_uniprot": "65.4",
+                "diff_uniprot": "2525",
+                "no_prev_match": "17576"
+              },
+              {
+                "oscode": "GOSHI",
+                "total_seqs": "66803",
+                "same_uniprot": "43926",
+                "pct_same_uniprot": "65.8",
+                "diff_uniprot": "10576",
+                "no_prev_match": "12301"
+              },
+              {
+                "oscode": "RAT",
+                "total_seqs": "21800",
+                "same_uniprot": "15733",
+                "pct_same_uniprot": "72.2",
+                "diff_uniprot": "4011",
+                "no_prev_match": "2056"
+              },
+              {
+                "oscode": "FUSNN",
+                "total_seqs": "1975",
+                "same_uniprot": "1454",
+                "pct_same_uniprot": "73.6",
+                "diff_uniprot": "418",
+                "no_prev_match": "103"
+              },
+              {
+                "oscode": "DANRE",
+                "total_seqs": "26701",
+                "same_uniprot": "20263",
+                "pct_same_uniprot": "75.9",
+                "diff_uniprot": "3302",
+                "no_prev_match": "3136"
+              },
+              {
+                "oscode": "HORSE",
+                "total_seqs": "21041",
+                "same_uniprot": "17733",
+                "pct_same_uniprot": "84.3",
+                "diff_uniprot": "3305",
+                "no_prev_match": "3"
+              },
+              {
+                "oscode": "CANLF",
+                "total_seqs": "20992",
+                "same_uniprot": "17793",
+                "pct_same_uniprot": "84.8",
+                "diff_uniprot": "3176",
+                "no_prev_match": "23"
+              },
+              {
+                "oscode": "HELAN",
+                "total_seqs": "88555",
+                "same_uniprot": "80941",
+                "pct_same_uniprot": "91.4",
+                "diff_uniprot": "27",
+                "no_prev_match": "7587"
+              },
+              {
+                "oscode": "PANTR",
+                "total_seqs": "23027",
+                "same_uniprot": "21100",
+                "pct_same_uniprot": "91.6",
+                "diff_uniprot": "1914",
+                "no_prev_match": "13"
+              },
+              {
+                "oscode": "PIG",
+                "total_seqs": "22800",
+                "same_uniprot": "20937",
+                "pct_same_uniprot": "91.8",
+                "diff_uniprot": "1597",
+                "no_prev_match": "266"
+              },
+              {
+                "oscode": "MACMU",
+                "total_seqs": "21893",
+                "same_uniprot": "20299",
+                "pct_same_uniprot": "92.7",
+                "diff_uniprot": "1591",
+                "no_prev_match": "3"
+              },
+              {
+                "oscode": "GORGO",
+                "total_seqs": "21788",
+                "same_uniprot": "20241",
+                "pct_same_uniprot": "92.9",
+                "diff_uniprot": "1534",
+                "no_prev_match": "13"
+              },
+              {
+                "oscode": "TOTAL",
+                "total_seqs": "2297097",
+                "same_uniprot": "2079348",
+                "pct_same_uniprot": "90.5",
+                "diff_uniprot": "86858",
+                "no_prev_match": "130891"
+              }
+            ],
+            "total_rows": 132,
+            "truncated": true,
+            "ragged_rows": 0
+          },
+          {
+            "name": "UniRules gaining in more than one family",
+            "columns": [
+              "unirule",
+              "families",
+              "family_count"
+            ],
+            "rows": [
+              {
+                "unirule": "UR000273287",
+                "families": "PTHR10157, PTHR11873, PTHR11923, PTHR12480, PTHR12484, PTHR20851, PTHR20852, PTHR22596, PTHR22906, PTHR23282, PTHR24139, PTHR24168, PTHR24250, PTHR24251, PTHR24252, PTHR24253, PTHR24254, PTHR24255, PTHR24256, PTHR24257, PTHR24258, PTHR24260, PTHR24261, PTHR24264, PTHR24271, PTHR24276, PTHR24278, PTHR24353, PTHR24412, PTHR45674, PTHR46184, PTHR46393, PTHR48071",
+                "family_count": 33
+              },
+              {
+                "unirule": "UR000078407",
+                "families": "PTHR10459, PTHR10494, PTHR11106, PTHR11742, PTHR13413, PTHR14453, PTHR15583, PTHR21328, PTHR23206, PTHR24125, PTHR24126, PTHR24144, PTHR24171, PTHR24180, PTHR24189, PTHR31681, PTHR32263, PTHR32470, PTHR43976, PTHR45737, PTHR45740, PTHR46530, PTHR47966",
+                "family_count": 23
+              },
+              {
+                "unirule": "UR000078420",
+                "families": "PTHR10353, PTHR12606, PTHR16719, PTHR21266, PTHR23315, PTHR27002, PTHR27006, PTHR27009, PTHR31080, PTHR32444, PTHR33178, PTHR34681, PTHR36586, PTHR45651, PTHR47926, PTHR47973, PTHR47974, PTHR47975, PTHR47976",
+                "family_count": 19
+              },
+              {
+                "unirule": "UR000000959",
+                "families": "PTHR10631, PTHR11668, PTHR11669, PTHR12442, PTHR19961, PTHR20516, PTHR21555, PTHR24056, PTHR31973, PTHR32546, PTHR33929, PTHR45619, PTHR45668, PTHR45673, PTHR45718, PTHR46033, PTHR46422",
+                "family_count": 17
+              },
+              {
+                "unirule": "UR000150805",
+                "families": "PTHR10739, PTHR11255, PTHR11566, PTHR11926, PTHR15744, PTHR22883, PTHR31451, PTHR34674, PTHR43205, PTHR48007, PTHR48043, PTHR48044, PTHR48045, PTHR48046, PTHR48047, PTHR48048, PTHR48049",
+                "family_count": 17
+              },
+              {
+                "unirule": "UR000736775",
+                "families": "PTHR14003, PTHR16515, PTHR19818, PTHR23226, PTHR23235, PTHR24376, PTHR24377, PTHR24379, PTHR24381, PTHR24384, PTHR24388, PTHR24390, PTHR24393, PTHR24399, PTHR24406, PTHR24408, PTHR24409",
+                "family_count": 17
+              },
+              {
+                "unirule": "UR000079119",
+                "families": "PTHR10121, PTHR12246, PTHR12349, PTHR15092, PTHR18860, PTHR22814, PTHR22883, PTHR24118, PTHR24161, PTHR24166, PTHR31053, PTHR31500, PTHR31675, PTHR31942, PTHR33085, PTHR47958",
+                "family_count": 16
+              },
+              {
+                "unirule": "UR000095065",
+                "families": "PTHR10075, PTHR10654, PTHR11412, PTHR12517, PTHR14336, PTHR24050, PTHR24242, PTHR26450, PTHR26451, PTHR26452, PTHR26453, PTHR26454, PTHR45944, PTHR48001, PTHR48002, PTHR48018",
+                "family_count": 16
+              },
+              {
+                "unirule": "UR000880756",
+                "families": "PTHR11040, PTHR11616, PTHR12209, PTHR15414, PTHR21646, PTHR23362, PTHR24006, PTHR24075, PTHR24347, PTHR24369, PTHR31573, PTHR35918, PTHR43982, PTHR46062, PTHR46138",
+                "family_count": 15
+              },
+              {
+                "unirule": "UR000000114",
+                "families": "PTHR13794, PTHR14064, PTHR15215, PTHR20988, PTHR24115, PTHR45659, PTHR46272, PTHR46472, PTHR47189, PTHR47968, PTHR47969, PTHR47970, PTHR47971, PTHR47972",
+                "family_count": 14
+              },
+              {
+                "unirule": "UR000000178",
+                "families": "PTHR11177, PTHR27002, PTHR27009, PTHR33199, PTHR34823, PTHR42976, PTHR45708, PTHR46066, PTHR46073, PTHR46290, PTHR46476, PTHR46635, PTHR47700",
+                "family_count": 13
+              },
+              {
+                "unirule": "UR000077155",
+                "families": "PTHR11559, PTHR14187, PTHR15606, PTHR22118, PTHR24020, PTHR43142, PTHR43903, PTHR43918, PTHR44590, PTHR45029, PTHR45237, PTHR45570, PTHR45580",
+                "family_count": 13
+              },
+              {
+                "unirule": "UR000121065",
+                "families": "PTHR21319, PTHR22814, PTHR23155, PTHR31339, PTHR31375, PTHR31636, PTHR31736, PTHR31884, PTHR32258, PTHR43205, PTHR47926, PTHR47929, PTHR47976",
+                "family_count": 13
+              },
+              {
+                "unirule": "UR000120476",
+                "families": "PTHR12549, PTHR12815, PTHR16057, PTHR21654, PTHR23152, PTHR24093, PTHR24231, PTHR32295, PTHR42861, PTHR44395, PTHR45712, PTHR46343",
+                "family_count": 12
+              },
+              {
+                "unirule": "UR000000171",
+                "families": "PTHR11879, PTHR42691, PTHR42790, PTHR42832, PTHR42885, PTHR43144, PTHR43488, PTHR43510, PTHR43795, PTHR43807, PTHR46383",
+                "family_count": 11
+              },
+              {
+                "unirule": "UR000172783",
+                "families": "PTHR11142, PTHR12191, PTHR12625, PTHR13257, PTHR14212, PTHR22776, PTHR24418, PTHR43804, PTHR45664, PTHR45742, PTHR45807",
+                "family_count": 11
+              },
+              {
+                "unirule": "UR000359766",
+                "families": "PTHR10209, PTHR10383, PTHR12956, PTHR20981, PTHR21495, PTHR33738, PTHR46215, PTHR46442, PTHR46506, PTHR47586, PTHR48478",
+                "family_count": 11
+              },
+              {
+                "unirule": "UR000000527",
+                "families": "PTHR10110, PTHR10502, PTHR12788, PTHR18945, PTHR23115, PTHR31525, PTHR31777, PTHR45718, PTHR45954, PTHR46281",
+                "family_count": 10
+              },
+              {
+                "unirule": "UR000046434",
+                "families": "PTHR11689, PTHR11766, PTHR11814, PTHR21053, PTHR23036, PTHR43427, PTHR45711, PTHR45720, PTHR47977, PTHR47979",
+                "family_count": 10
+              },
+              {
+                "unirule": "UR000083071",
+                "families": "PTHR12416, PTHR12814, PTHR33653, PTHR35901, PTHR36173, PTHR38826, PTHR39664, PTHR39677, PTHR42188, PTHR42740",
+                "family_count": 10
+              }
+            ],
+            "total_rows": 813,
+            "truncated": true,
+            "ragged_rows": 813
+          }
+        ]
+      },
+      "message": null,
+      "status": "ok"
+    }
+  ]
+}
