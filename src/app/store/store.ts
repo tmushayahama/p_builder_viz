@@ -1,5 +1,6 @@
 import { combineSlices, configureStore } from '@reduxjs/toolkit'
 import { uiSlice } from '@/app/slices/uiSlice'
+import { buildSlice } from '@/features/build/slices/buildSlice'
 
 /**
  * `combineSlices` rather than `combineReducers` so feature slices can be added
@@ -7,6 +8,7 @@ import { uiSlice } from '@/app/slices/uiSlice'
  */
 const rootReducer = combineSlices({
   ui: uiSlice.reducer,
+  build: buildSlice.reducer,
 })
 
 export type RootState = ReturnType<typeof rootReducer>
