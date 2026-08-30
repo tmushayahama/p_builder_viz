@@ -26,6 +26,10 @@ import { createCategoricalScale } from '@/@panther.core/theme/tokens'
 import type { CategoricalScale } from '@/@panther.core/theme/tokens'
 import { ABSENT_MARK } from '@/@panther.core/vocabulary'
 import type { BuildPhase, BuildReport, BuildStep, MappingSummary } from '@/features/build/model'
+// Imported across features deliberately: the count of later phases that carried on past a hole is
+// stated by the spine, the phase detail and this report, and three local definitions had already
+// drifted into two different numbers for one claim.
+import { laterPhasesWithWork } from '@/features/pipeline/model'
 
 /* -- Labels ------------------------------------------------------------------------------- */
 
@@ -195,7 +199,8 @@ export interface MappingView {
   phase: BuildPhase | null
   incompleteStepGoals: string[]
   /** Phases after this one that finished, which is what makes an incomplete phase a hole. */
-  laterCompletePhaseCount: number
+  /** Later phases that produced work. Shared with the spine so the counts agree. */
+  laterPhasesRan: number
 }
 
 function stageStepOf(step: BuildStep, phaseName: string): StageStep {
@@ -414,11 +419,6 @@ export function buildMappingView(report: BuildReport): MappingView {
     phase,
     incompleteStepGoals:
       phase === null ? [] : phase.steps.filter(step => !step.isComplete).map(step => step.goal),
-    laterCompletePhaseCount:
-      phase === null
-        ? 0
-        : report.pipeline.phases.filter(
-            entry => entry.index > phase.index && entry.status === 'complete'
-          ).length,
+    laterPhasesRan: phase === null ? 0 : laterPhasesWithWork(phase, report.pipeline.phases),
   }
 }

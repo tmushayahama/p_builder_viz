@@ -19,7 +19,8 @@ export interface HoleStatement {
   /** The goals that never completed, named rather than counted. */
   incompleteGoals: string[]
   /** How many phases after this one finished anyway - the evidence it is a hole. */
-  laterCompletePhases: number
+  /** Later phases that produced work. See `laterPhasesWithWork` for why not simply 'later'. */
+  laterPhasesRan: number
 }
 
 export interface FailureStatement {
@@ -81,8 +82,11 @@ function aheadSentence(report: BuildReport): string | null {
 }
 
 function holeStatement(report: BuildReport, hole: BuildPhase): HoleStatement {
-  const laterComplete = report.pipeline.phases.filter(
-    phase => phase.index > hole.index && phase.status === 'complete'
+  // Counted as "produced work", not "reached status complete", so this agrees with the number the
+  // phase row and the phase detail show. The frontier itself is incomplete but plainly carried on
+  // past the hole, and excluding it would state a weaker case than the data supports.
+  const laterRan = report.pipeline.phases.filter(
+    phase => phase.index > hole.index && phase.completedSteps > 0
   ).length
 
   return {
@@ -91,7 +95,7 @@ function holeStatement(report: BuildReport, hole: BuildPhase): HoleStatement {
     name: hole.name,
     counter: `${hole.completedSteps} of ${hole.totalSteps} steps`,
     incompleteGoals: hole.steps.filter(step => !step.isComplete).map(step => step.goal),
-    laterCompletePhases: laterComplete,
+    laterPhasesRan: laterRan,
   }
 }
 
@@ -99,11 +103,11 @@ function holesSentence(holes: readonly HoleStatement[]): string {
   if (holes.length === 0) {
     return 'Nothing behind the frontier is incomplete: every earlier phase finished every step.'
   }
-  const later = holes.reduce((most, hole) => Math.max(most, hole.laterCompletePhases), 0)
+  const later = holes.reduce((most, hole) => Math.max(most, hole.laterPhasesRan), 0)
   return (
     `${holes.length} ${plural(holes.length, 'phase')} behind the frontier ` +
     `${holes.length === 1 ? 'is' : 'are'} incomplete while ${later} later ` +
-    `${plural(later, 'phase')} completed. ` +
+    `${plural(later, 'phase')} carried on past it. ` +
     `${holes.length === 1 ? 'This is a hole' : 'These are holes'}, not where the build stopped.`
   )
 }

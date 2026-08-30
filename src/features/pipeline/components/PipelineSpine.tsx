@@ -16,6 +16,7 @@ import { PhaseNode } from '@/features/pipeline/components/PhaseNode'
 import {
   attributeWarningsToPhases,
   buildSpineNodes,
+  laterPhasesWithWork,
   phaseMarkers,
   unattachedReports,
 } from '@/features/pipeline/model'
@@ -148,7 +149,7 @@ export const PipelineSpine = ({ highlightId }: PipelineSpineProps) => {
               <PhaseNode
                 key={node.id}
                 phase={phase}
-                phaseCount={phaseCount}
+                laterPhasesRan={laterPhasesWithWork(phase, pipeline.phases)}
                 markers={phaseMarkers(phase, warningsByPhase)}
                 reportCount={node.reportCount}
                 selected={active === phase.index}

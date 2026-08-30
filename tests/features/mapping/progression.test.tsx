@@ -112,7 +112,10 @@ describe('mapping stage deltas (Appendix A.5)', () => {
     expect(view.phase?.name).toBe('Sequence-to-family mapping')
     expect(view.phase?.isHole).toBe(true)
     expect(view.incompleteStepGoals).toEqual(['validate_idmapping_step', 'validate_blast_step'])
-    expect(view.laterCompletePhaseCount).toBe(9)
+    // Ten, not nine: nine later phases reached `complete`, but the frontier also carried on past
+    // this hole with 10 of its 12 steps done. The spine, the phase detail and this report all state
+    // the same number.
+    expect(view.laterPhasesRan).toBe(10)
   })
 })
 
@@ -192,7 +195,7 @@ describe('MappingReportView on the captured report', () => {
       ).toBeInTheDocument()
       expect(screen.getByText('validate_idmapping_step, validate_blast_step')).toBeInTheDocument()
       expect(
-        spanningText('9 later phases completed, so this is a hole behind the frontier')
+        spanningText('10 later phases carried on past it, so this is a hole behind the frontier')
       ).not.toHaveLength(0)
 
       expect(screen.queryByText('Sequences')).toBeNull()

@@ -34,7 +34,7 @@ describe('FrontierSummary on the captured report', () => {
     renderWithProviders(<FrontierSummary />, { preloadedState: preloaded('real') })
 
     const holes = screen.getByText(/^1 phase behind the frontier is incomplete/)
-    expect(holes).toHaveTextContent(/while 9 later phases completed/)
+    expect(holes).toHaveTextContent(/while 10 later phases carried on past it/)
     expect(holes).toHaveTextContent('This is a hole, not where the build stopped.')
   })
 
@@ -43,7 +43,7 @@ describe('FrontierSummary on the captured report', () => {
 
     const detail = screen.getByText(/^3 of 5 steps done\./)
     expect(detail).toHaveTextContent('Incomplete: validate_idmapping_step, validate_blast_step')
-    expect(detail).toHaveTextContent('9 later phases completed anyway')
+    expect(detail).toHaveTextContent('10 later phases carried on past it')
     expect(screen.getByRole('link', { name: 'Sequence-to-family mapping' })).toBeInTheDocument()
   })
 })

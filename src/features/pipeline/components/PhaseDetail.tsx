@@ -110,7 +110,9 @@ export const PhaseDetail = ({ phase, highlightId }: PhaseDetailProps) => {
         }
       >
         <div className="space-y-2">
-          <p className="text-ink max-w-prose text-xs">{phaseInterpretation(phase, phaseCount)}</p>
+          <p className="text-ink max-w-prose text-xs">
+            {phaseInterpretation(phase, report.pipeline.phases)}
+          </p>
 
           {markers.warnings.length > 0 && (
             <ul className="list-none space-y-1 p-0">

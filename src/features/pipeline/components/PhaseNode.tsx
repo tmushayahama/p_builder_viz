@@ -19,7 +19,8 @@ import type { PhaseMarkers } from '@/features/pipeline/model'
  */
 export interface PhaseNodeProps {
   phase: BuildPhase
-  phaseCount: number
+  /** Later phases that actually produced work - not simply the phases after this one. */
+  laterPhasesRan: number
   markers: PhaseMarkers
   reportCount: number
   selected: boolean
@@ -51,7 +52,7 @@ const Flag = ({
 
 export const PhaseNode = ({
   phase,
-  phaseCount,
+  laterPhasesRan,
   markers,
   reportCount,
   selected,
@@ -66,7 +67,6 @@ export const PhaseNode = ({
   const duration =
     phase.timing.seconds === null ? null : `≈ ${formatDuration(phase.timing.seconds)}`
   const incomplete = phase.steps.filter(step => !step.isComplete)
-  const laterPhases = phaseCount - phase.index - 1
 
   return (
     <li
@@ -121,7 +121,7 @@ export const PhaseNode = ({
               detail={phaseCounter(phase)}
               hint={
                 phase.isHole
-                  ? `Incomplete while ${laterPhases} later ${plural(laterPhases, 'phase')} ran ` +
+                  ? `Incomplete while ${laterPhasesRan} later ${plural(laterPhasesRan, 'phase')} ran ` +
                     'past it. A hole, not where the build stopped.'
                   : undefined
               }

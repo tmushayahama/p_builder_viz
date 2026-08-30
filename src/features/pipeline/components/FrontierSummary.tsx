@@ -74,10 +74,10 @@ export const FrontierSummary = () => {
                 </Link>
                 <span className="text-ink-muted text-2xs" data-pb-statement="hole-detail">
                   {`${hole.counter} done. Incomplete: ${hole.incompleteGoals.join(', ')}. ` +
-                    `${hole.laterCompletePhases} later ${plural(
-                      hole.laterCompletePhases,
+                    `${hole.laterPhasesRan} later ${plural(
+                      hole.laterPhasesRan,
                       'phase'
-                    )} completed anyway.`}
+                    )} carried on past it.`}
                 </span>
               </li>
             ))}

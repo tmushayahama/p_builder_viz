@@ -21,7 +21,7 @@ describe('PhaseDetail for the hole', () => {
 
     expect(
       screen.getByText(
-        'Incomplete, but 11 later phases carried on past it. This is a hole behind the frontier, not the point where the build stopped.'
+        'Incomplete, but 10 later phases carried on past it. This is a hole behind the frontier, not the point where the build stopped.'
       )
     ).toBeInTheDocument()
   })

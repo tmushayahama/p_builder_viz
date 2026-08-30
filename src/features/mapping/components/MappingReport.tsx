@@ -59,12 +59,12 @@ export const MappingReportView = ({ report }: MappingReportViewProps) => {
           {plural(view.incompleteStepGoals.length, 'declared step')} in this phase never finished
           {view.incompleteStepGoals.length === 0 ? '' : ': '}
           <span className="pb-ident text-ink">{view.incompleteStepGoals.join(', ')}</span>.
-          {view.laterCompletePhaseCount > 0 && (
+          {view.laterPhasesRan > 0 && (
             <>
               {' '}
-              {view.laterCompletePhaseCount} later {plural(view.laterCompletePhaseCount, 'phase')}{' '}
-              completed, so this is a hole behind the frontier rather than where the build stopped —
-              and the numbers below were produced without those steps running.
+              {view.laterPhasesRan} later {plural(view.laterPhasesRan, 'phase')} carried on past it,
+              so this is a hole behind the frontier rather than where the build stopped — and the
+              numbers below were produced without those steps running.
             </>
           )}
         </p>

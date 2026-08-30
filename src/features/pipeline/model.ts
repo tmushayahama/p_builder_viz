@@ -74,9 +74,21 @@ export function phaseCounter(phase: BuildPhase): string {
   return `${phase.completedSteps}/${phase.totalSteps}`
 }
 
+/**
+ * How many phases after this one actually produced work.
+ *
+ * Not simply "the phases after it": a phase that never started carried on past nothing, and
+ * counting it overstates the case that a hole was skipped rather than reached. On the captured
+ * report, phase 2 is followed by eleven phases but only ten of them ran - Final packaging never
+ * started - and the difference is the whole claim the sentence makes.
+ */
+export function laterPhasesWithWork(phase: BuildPhase, phases: readonly BuildPhase[]): number {
+  return phases.slice(phase.index + 1).filter(later => later.completedSteps > 0).length
+}
+
 /** One line explaining what this phase's state means, in the spine's own words. */
-export function phaseInterpretation(phase: BuildPhase, phaseCount: number): string {
-  const later = phaseCount - phase.index - 1
+export function phaseInterpretation(phase: BuildPhase, phases: readonly BuildPhase[]): string {
+  const later = laterPhasesWithWork(phase, phases)
   switch (phase.status) {
     case 'complete':
       return 'Every step in this phase produced its artifact.'
