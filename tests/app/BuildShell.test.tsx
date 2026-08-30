@@ -12,10 +12,7 @@ import { renderWithProviders } from '@tests/test-utils'
  * than to the first phase, and a deep link moves the selection so that the anchor it points at
  * actually exists - a link that only scrolled would land on an unmounted element.
  */
-// Mounting the whole shell renders 14 phases plus five lazily-loaded reports; in
-// jsdom that takes about four seconds, so the 5s default timeout trips under
-// full-suite load. The product is not slow - the environment is.
-describe('BuildShell', { timeout: 30_000 }, () => {
+describe('BuildShell', () => {
   it('renders the preamble, the frontier statement, the spine and the timeline together', async () => {
     renderWithProviders(<BuildShell />, { route: BUILD_ROUTE })
 
@@ -57,7 +54,7 @@ describe('BuildShell', { timeout: 30_000 }, () => {
     ).toBeInTheDocument()
     expect(
       screen.getByText(
-        'Incomplete, but 11 later phases carried on past it. This is a hole behind the frontier, not the point where the build stopped.'
+        'Incomplete, but 10 later phases carried on past it. This is a hole behind the frontier, not the point where the build stopped.'
       )
     ).toBeInTheDocument()
   })

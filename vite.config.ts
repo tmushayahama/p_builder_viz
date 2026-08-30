@@ -64,6 +64,12 @@ export default defineConfig(({ mode }) => {
       setupFiles: 'tests/setup.ts',
       include: ['tests/**/*.test.{ts,tsx}'],
       mockReset: true,
+      // Mounting the build record renders 14 phases plus five lazily loaded reports, which takes
+      // several seconds in jsdom and longer while the whole suite runs in parallel. At the 5s
+      // default those tests failed as "unable to find element" - a timing problem wearing the
+      // costume of a missing one. Raised globally rather than per-describe so a new shell test
+      // does not have to rediscover this.
+      testTimeout: 30_000,
     },
     define: {
       __APP_ENV__: JSON.stringify(env.VITE_APP_ENV),
