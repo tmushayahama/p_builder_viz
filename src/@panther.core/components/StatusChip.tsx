@@ -7,10 +7,20 @@ import { STATUS_DESCRIPTORS, isStatusKey } from '@/@panther.core/vocabulary'
 /**
  * A phase, step, check, freshness, timing or availability state.
  *
- * ALWAYS icon + text label. There is deliberately no icon-only variant and no
- * way to pass a colour: hue is the third cue, never the first, so `failed`,
- * `pending`, `hole`, `warning` and `frontier` stay distinguishable by shape and
- * by word for a colour-blind reader and on a monochrome print.
+ * ALWAYS icon + text label, and never a way to pass a colour: hue is the third
+ * cue, never the first, so `failed`, `pending`, `hole`, `warning` and
+ * `frontier` stay distinguishable by shape and by word for a colour-blind
+ * reader and on a monochrome print.
+ *
+ * `quiet` is the one variant that drops the *visible* word, and it exists for a
+ * measured reason. A phase's step list renders one chip per row; on the
+ * captured report that is twelve identical green "Done" chips above the two
+ * `pending` rows that are the only ones worth looking at. Repeating the
+ * expected state on every row spends all the attention the table has on the
+ * outcome nobody needs to check. `quiet` keeps the icon - so shape still
+ * carries the state - and keeps the word in the accessible name via `sr-only`,
+ * so a screen reader and a keyboard user lose nothing. Use it ONLY for the
+ * unremarkable case in a repeated list, never for an exception.
  *
  * An unrecognised literal is not coerced into a known state. It renders as
  * `Unknown status: <value>` with the literal preserved, which is what the
@@ -22,8 +32,11 @@ export interface StatusChipProps {
   /** Override the word only when the domain wording differs; the shape is fixed. */
   label?: string
   size?: 'sm' | 'md'
-  /** `wash` draws the tinted chip; `plain` is icon + word inline in running text. */
-  variant?: 'wash' | 'plain'
+  /**
+   * `wash` draws the tinted chip; `plain` is icon + word inline in running
+   * text; `quiet` is the icon alone with the word kept for assistive tech.
+   */
+  variant?: 'wash' | 'plain' | 'quiet'
   /** A secondary figure the state carries, e.g. an attempt count or `10/12`. */
   detail?: string
   /** Replaces the descriptor's own one-line explanation. */
@@ -74,14 +87,16 @@ export const StatusChip = ({
         size === 'md' ? 'text-xs' : 'text-2xs',
         variant === 'wash'
           ? clsx('pb-hairline rounded-hair px-1.5 py-px', toneClasses[descriptor.tone])
-          : toneInk[descriptor.tone],
+          : variant === 'quiet'
+            ? 'text-ink-faint'
+            : toneInk[descriptor.tone],
         className
       )}
       data-status={status}
       data-status-tone={descriptor.tone}
     >
       <StatusIcon shape={descriptor.shape} size={iconSize} className="shrink-0" />
-      <span className="truncate">{word}</span>
+      <span className={variant === 'quiet' ? 'sr-only' : 'truncate'}>{word}</span>
       {detail !== undefined && <span className="pb-figures text-ink-muted">{detail}</span>}
     </span>
   )

@@ -21,6 +21,8 @@ export interface PhaseNodeProps {
   phase: BuildPhase
   /** Later phases that actually produced work - not simply the phases after this one. */
   laterPhasesRan: number
+  /** The longest phase span in the build, so the duration bars share one scale. */
+  longestPhaseSeconds: number | null
   markers: PhaseMarkers
   reportCount: number
   selected: boolean
@@ -53,6 +55,7 @@ const Flag = ({
 export const PhaseNode = ({
   phase,
   laterPhasesRan,
+  longestPhaseSeconds,
   markers,
   reportCount,
   selected,
@@ -85,7 +88,7 @@ export const PhaseNode = ({
           selected ? 'bg-wash-selected' : 'hover:bg-wash-hover'
         )}
       >
-        <span className="relative flex w-3 shrink-0 justify-center">
+        <span className="relative flex w-4 shrink-0 justify-center">
           <span
             aria-hidden="true"
             className={clsx(
@@ -135,7 +138,31 @@ export const PhaseNode = ({
                 maw={300}
                 openDelay={150}
               >
-                <span className="pb-figures text-ink-faint text-2xs">{duration}</span>
+                <span className="flex items-center gap-1.5">
+                  {/* Where the time went, at a glance. The spans run from about three
+                      minutes to nearly half an hour across the fourteen phases and the
+                      figure alone made that spread invisible. Shares one scale across
+                      the spine, so bar lengths are comparable between phases. */}
+                  {longestPhaseSeconds !== null &&
+                    longestPhaseSeconds > 0 &&
+                    phase.timing.seconds !== null && (
+                      <span
+                        aria-hidden="true"
+                        className="bg-surface-3 relative h-1 w-10 overflow-hidden rounded-full"
+                      >
+                        <span
+                          className="bg-seq-3 absolute inset-y-0 left-0 rounded-full"
+                          style={{
+                            width: `${Math.max(
+                              3,
+                              (phase.timing.seconds / longestPhaseSeconds) * 100
+                            )}%`,
+                          }}
+                        />
+                      </span>
+                    )}
+                  <span className="pb-figures text-ink-faint text-2xs">{duration}</span>
+                </span>
               </Tooltip>
             )}
 

@@ -64,6 +64,13 @@ export const PipelineSpine = ({ highlightId }: PipelineSpineProps) => {
 
   const { pipeline } = report
   const phaseCount = pipeline.phases.length
+  // One scale for every duration bar in the spine, so a longer bar always means a
+  // longer phase rather than a differently-scaled row.
+  const longestPhaseSeconds = pipeline.phases.reduce<number | null>(
+    (max, phase) =>
+      phase.timing.seconds === null ? max : Math.max(max ?? 0, phase.timing.seconds),
+    null
+  )
   const stepsTotal = pipeline.computedHeadline.stepsTotal ?? 0
 
   const choose = (target: PhaseSelectionTarget, phaseId: string) => {
@@ -150,6 +157,7 @@ export const PipelineSpine = ({ highlightId }: PipelineSpineProps) => {
                 key={node.id}
                 phase={phase}
                 laterPhasesRan={laterPhasesWithWork(phase, pipeline.phases)}
+                longestPhaseSeconds={longestPhaseSeconds}
                 markers={phaseMarkers(phase, warningsByPhase)}
                 reportCount={node.reportCount}
                 selected={active === phase.index}

@@ -41,21 +41,37 @@ export const FrontierSummary = () => {
       }
       breakBefore={false}
     >
-      <div className="space-y-1.5">
-        <p className="text-ink max-w-prose text-xs" data-pb-statement="frontier">
+      <div className="space-y-band">
+        {/* The headline states the same fact as the sentence below it, on purpose. The
+            counter and the phase name are what a reviewer is scanning for, and at body
+            size inside a paragraph they were indistinguishable from the surrounding
+            prose. The sentence stays because "where did the build reach" has to be
+            readable as plain language, not decoded from a figure. */}
+        {frontier !== null && (
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-ink pb-figures text-display leading-none font-semibold">
+              {frontier.completedSteps}
+              <span className="text-ink-faint font-normal">/{frontier.totalSteps}</span>
+            </span>
+            <span className="flex flex-col gap-0.5">
+              <Link
+                to={phaseRoute(frontier.id)}
+                className="text-ink hover:text-accent text-lede leading-tight font-semibold"
+              >
+                {frontier.name}
+              </Link>
+              <span className="text-ink-faint text-2xs tracking-wide uppercase">
+                build frontier · steps complete
+              </span>
+            </span>
+          </div>
+        )}
+
+        <p className="text-ink-muted max-w-prose text-xs" data-pb-statement="frontier">
           {statement.ahead === null
             ? statement.frontier
             : `${statement.frontier} ${statement.ahead}`}
         </p>
-
-        {frontier !== null && (
-          <Link
-            to={phaseRoute(frontier.id)}
-            className="text-accent hover:text-accent-hover text-2xs inline-block"
-          >
-            Open {frontier.name} →
-          </Link>
-        )}
 
         <p className="text-ink max-w-prose text-xs" data-pb-statement="holes">
           {statement.holes}

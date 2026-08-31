@@ -64,7 +64,7 @@ export const PhaseMarker = ({ statusKey, className }: PhaseMarkerProps) => {
       <span
         aria-hidden="true"
         data-phase-marker="hole"
-        className={clsx('pb-hatch pb-hairline-strong rounded-hair block size-3', className)}
+        className={clsx('pb-hatch pb-hairline-strong rounded-hair block size-4', className)}
       />
     )
   }
@@ -72,8 +72,8 @@ export const PhaseMarker = ({ statusKey, className }: PhaseMarkerProps) => {
   return (
     <svg
       viewBox="0 0 12 12"
-      width={12}
-      height={12}
+      width={16}
+      height={16}
       aria-hidden="true"
       focusable="false"
       data-phase-marker={statusKey}

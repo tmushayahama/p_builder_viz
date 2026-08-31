@@ -150,12 +150,22 @@ export const PhaseDetail = ({ phase, highlightId }: PhaseDetailProps) => {
             level={4}
             count={`${phase.completedSteps} of ${phase.totalSteps} complete · declared order`}
             description={
-              phase.incompleteSteps.length === 0
-                ? undefined
-                : `${phase.incompleteSteps.length} ${plural(
-                    phase.incompleteSteps.length,
-                    'step'
-                  )} incomplete.`
+              // Timing provenance used to ride every row as its own chip, which on a
+              // twelve-step phase meant twelve copies of one fact. It is the same fact
+              // for every row in this fixture, so it belongs to the table, not the row -
+              // and each row still carries its own provenance in the expanded detail if
+              // a future report mixes measured and inferred timings.
+              [
+                phase.incompleteSteps.length === 0
+                  ? null
+                  : `${phase.incompleteSteps.length} ${plural(
+                      phase.incompleteSteps.length,
+                      'step'
+                    )} incomplete.`,
+                'Elapsed times are inferred from artifact timestamps, not measured runtime.',
+              ]
+                .filter(Boolean)
+                .join(' ')
             }
           >
             Steps

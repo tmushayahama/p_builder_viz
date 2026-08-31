@@ -134,14 +134,15 @@ export const StepRow = ({ step, predecessorGoal, highlighted }: StepRowProps) =>
         }
         summaryAside={
           <span className="flex items-center gap-2">
-            <StatusChip status={statusValue} />
+            {/* `done` is the expected outcome and covers most rows, so it renders
+                quiet - the icon still carries the shape and the word survives in
+                the accessible name. Anything else keeps the full chip, which is
+                what makes the handful of incomplete steps findable at a glance. */}
+            <StatusChip status={statusValue} variant={statusValue === 'done' ? 'quiet' : 'wash'} />
             <span className="pb-figures text-ink-muted text-2xs hidden w-[6.5rem] text-right sm:inline-block">
               {step.timing.artifactAt.present
                 ? formatUtcShort(step.timing.artifactAt)
                 : ABSENT_MARK}
-            </span>
-            <span className="hidden w-[5.5rem] md:inline-block">
-              <StatusChip status={step.timing.provenance} variant="plain" />
             </span>
             <span className="pb-figures text-ink-faint text-2xs hidden w-14 text-right lg:inline-block">
               {step.timing.seconds === null
