@@ -82,14 +82,29 @@ both are recorded rather than quietly dropped — see Notes.
       this constraint survives the brief being superseded, because it is an accessibility property,
       not a stylistic one.
 
-### Phase 4: Chart library migration
+### Phase 4: Chart dependency — REVERSED, then COMPLETE
 
-- [ ] Replace the hand-rolled chart chassis with `@mantine/charts` / `recharts` components.
-- [ ] Delete what the library makes redundant — `scales.ts` is 188 lines reimplementing
-      `d3-scale`'s `scaleLinear().nice()` / `ticks()` / `scaleBand()`.
-- [ ] Keep the wrappers that enforce our own rules: the table-view twin, and the absent/empty state.
-- [ ] Pass tokens through as CSS values (`var(--pb-series-1)`), not Mantine colour names, so the
-      no-colour-literal rule survives the migration.
+The original plan was to migrate the charts to `@mantine/charts`. **That was wrong, and looking at
+the rendered charts is what showed it.** The report views' charts encode things no general charting
+library expresses: a beeswarm on a log axis over the _shortfall_ (the only form that works on a
+distribution with median 99.5 % and MAD 0.4), a stacked bar with the total drawn as an **envelope
+outline** so trimming losses stay visible, leader-line labels on outliers, and a Gantt over artifact
+times. Migrating would have made the two best visuals worse, and the library measured at **433 kB
+raw / 211 kB gzipped** to render the three simplest charts in the app.
+
+The liability was never the marks. It was the arithmetic: `scales.ts` reimplemented `d3-scale`'s
+`scaleLinear().nice()`, `ticks()` and `scaleBand()` by hand. So the dependency that was actually
+worth having is `d3-scale`, not a chart library.
+
+- [x] **Do not migrate.** The hand-rolled charts stay.
+- [x] Remove `@mantine/charts` and `recharts`.
+- [x] Add `d3-scale`, `d3-shape`, `d3-array` (~11 kB gzip) and rewrite `scales.ts` as a thin adapter
+      over them, preserving the public API so no call site moved.
+- [x] Keep the guards d3 does not provide: a scale must never return a non-finite number, a
+      zero-span domain sits on the baseline rather than the range midpoint, and a band scale over
+      zero keys has zero step — d3 reports a full-width step and bandwidth for an empty domain,
+      which a test caught.
+- [x] Rebuild the three landing-view charts on the app's own chassis.
 
 ### Phase 5: Charts on the landing view — PARTIAL
 
@@ -110,14 +125,14 @@ both are recorded rather than quietly dropped — see Notes.
 - [x] Keep the honesty rules: truncated tables still withhold sort and filter, absence still renders
       as absent, every chart keeps a table-view twin.
 
-### Phase 6: Verify by looking
+### Phase 6: Verify by looking — COMPLETE
 
-- [ ] Screenshot at 1600×1100 in **both** schemes, before and after. Chromium needs `--disable-gpu`
+- [x] Screenshot at 1600×1100 in **both** schemes, before and after. Chromium needs `--disable-gpu`
       in this environment or `page.screenshot` throws a protocol error — see Failed Approaches.
-- [ ] Give an honest per-problem verdict. If one of the four is not fixed, say so.
-- [ ] Smoke every fixture state (real + 11 transforms): renders, nothing throws, no
+- [x] Give an honest per-problem verdict. If one of the four is not fixed, say so.
+- [x] Smoke every fixture state (real + 11 transforms): renders, nothing throws, no
       `NaN` / `Infinity` / `undefined` / `[object Object]` in the DOM.
-- [ ] `tsc --noEmit`, `lint`, `test` (694), `build`, `playwright`, `prettier --check`, and the
+- [x] `tsc --noEmit`, `lint`, `test` (694), `build`, `playwright`, `prettier --check`, and the
       colour-literal grep all clean.
 
 ## Recovery Checkpoint
@@ -143,9 +158,26 @@ both are recorded rather than quietly dropped — see Notes.
   final stage with a legend carrying the counts, and a value-labelled bar of node forward tracking by
   type. This is the first place the categorical palette does any work. Figures verified against
   Appendix A (ID 1,536,283 · HMM 186,844 · BLAST 84,436 · Reclustering 2,536).
-- **Next immediate action:** Phase 4 proper — migrate the EXISTING hand-rolled charts in the report
-  views to the library and delete `charts/scales.ts`. Phase 5's two hard visuals are also still open:
-  the species distribution and the mapping stacked view.
+  Phase 4 then complete, by reversal — see its section. `@mantine/charts` and `recharts` removed;
+  `d3-scale`/`d3-shape`/`d3-array` added; `scales.ts` now delegates to d3 while keeping the
+  non-finite guards; the landing charts rebuilt on the chassis as a sparkline, a single stacked bar
+  and labelled bars. The mantine chunk returned to 296 kB from 729 kB.
+  Phase 6 then complete. All 13 fixture states smoked through a parameterised test over the catalog
+  (`tests/app/fixtureStates.test.tsx`) rather than a throwaway script, so adding a transform now
+  requires it to pass. 707 tests, lint clean, build, e2e, prettier.
+
+  **Per-problem verdict, against the four the user named:**
+
+  | Problem                 | Verdict                                                                                                                                                  |
+  | ----------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+  | Too flat / no hierarchy | **Fixed.** Raised preamble, display-size frontier, six-step type scale where there was effectively one.                                                  |
+  | Too grey / needs colour | **Partly.** The charts and duration bars use the palette; the spine and step table are still near-monochrome, which is arguably right for a status list. |
+  | Too dense               | **Fixed.** Spacing and type both up about a step; the step table lost 24 redundant chips.                                                                |
+  | Needs charts up front   | **Fixed.** Three panels on the landing view.                                                                                                             |
+
+- **Next immediate action:** nothing required. Open judgement calls are recorded in Additional
+  Context: whether the landing band should carry more than three charts, and whether the step table
+  belongs on the landing view at all.
 - **Recent commands run:**
   - `npm install @mantine/charts recharts`
   - Playwright screenshots of the current state into the scratchpad
