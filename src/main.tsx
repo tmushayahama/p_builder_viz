@@ -7,7 +7,6 @@ import { store } from '@/app/store/store'
 // Mantine's stylesheets must load before ours so Tailwind utilities and our own
 // base layer win on equal specificity.
 import '@mantine/core/styles.css'
-import '@mantine/charts/styles.css'
 import '@mantine/notifications/styles.css'
 import '@/index.css'
 
