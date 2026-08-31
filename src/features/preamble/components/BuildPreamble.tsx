@@ -199,7 +199,7 @@ export const BuildPreamble = () => {
 
   return (
     <header
-      className="bg-surface-1 rounded-hair pb-hairline"
+      className="bg-surface-raised rounded-panel pb-raised pb-hairline"
       data-pb-break="avoid"
       aria-label="Build record header"
     >
@@ -276,10 +276,23 @@ export const BuildPreamble = () => {
               </span>
             }
             summaryAside={
-              <span className="pb-figures text-ink-muted text-2xs">
-                {config.ledgerEntries.length} ledger {plural(config.ledgerEntries.length, 'row')} ·{' '}
-                {config.resolvedEntries.length} resolved{' '}
-                {plural(config.resolvedEntries.length, 'value')}
+              <span className="pb-figures text-ink-muted text-2xs flex flex-wrap items-baseline gap-x-2">
+                <span>
+                  {config.ledgerEntries.length} ledger {plural(config.ledgerEntries.length, 'row')}{' '}
+                  · {config.resolvedEntries.length} resolved{' '}
+                  {plural(config.resolvedEntries.length, 'value')}
+                </span>
+                {/* The ledger is append-only: one record per run of the build driver. More than one
+                    means the configuration changed while this build was running, so the values
+                    below describe the latest run and not necessarily the inputs every artifact was
+                    produced against. That is worth surfacing here rather than leaving it to whoever
+                    opens the section. */}
+                {config.recordCount !== null && config.recordCount > 1 && (
+                  <StatusChip
+                    status="warning"
+                    label={`config changed during the build · ${config.recordCount} records`}
+                  />
+                )}
               </span>
             }
           >

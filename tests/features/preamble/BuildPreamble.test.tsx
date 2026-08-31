@@ -90,3 +90,19 @@ describe('BuildPreamble report-state honesty', () => {
     expect(screen.getByText(/Failed step:/)).toBeInTheDocument()
   })
 })
+
+describe('BuildPreamble config ledger', () => {
+  it('says nothing about config churn when the ledger holds a single record', () => {
+    renderWithProviders(<BuildPreamble />, { preloadedState: preloaded('real') })
+
+    expect(screen.queryByText(/config changed during the build/)).toBeNull()
+  })
+
+  it('flags an append-only ledger that gained a second record during the build', () => {
+    renderWithProviders(<BuildPreamble />, { preloadedState: preloaded('configChanged') })
+
+    // The resolved values below describe the latest driver run, not every artifact in the target,
+    // so the count is surfaced beside them rather than left inside the section.
+    expect(screen.getByText('config changed during the build · 2 records')).toBeInTheDocument()
+  })
+})

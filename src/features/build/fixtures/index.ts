@@ -21,6 +21,7 @@ import {
   toWarning,
   withFutureSchema,
   withUnknownSection,
+  withConfigChange,
   withUnknownStatus,
 } from './transforms'
 import type { BuildStateTransform } from './transforms'
@@ -36,6 +37,7 @@ export const FIXTURE_STATE_KEYS = [
   'stale',
   'unknownSection',
   'unknownStatus',
+  'configChanged',
   'futureSchema',
   'degraded',
 ] as const
@@ -141,6 +143,15 @@ const DEFINITIONS: readonly FixtureStateDefinition[] = [
       'than coerced.',
     transforms: ['withUnknownStatus'],
     apply: withUnknownStatus(),
+  },
+  {
+    key: 'configChanged',
+    label: 'Config changed mid-build',
+    description:
+      'The append-only config ledger holds more than one record, so the resolved values describe ' +
+      'the latest run of the driver rather than every artifact in the target.',
+    transforms: ['withConfigChange'],
+    apply: withConfigChange(),
   },
   {
     key: 'futureSchema',

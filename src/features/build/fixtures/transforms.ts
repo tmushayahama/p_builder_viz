@@ -508,6 +508,41 @@ export function withUnknownStatus(): BuildStateTransform {
   }
 }
 
+/**
+ * A build whose configuration changed while it was running.
+ *
+ * `reports/build_config.jsonl` is append-only: the pipeline appends one record each time the build
+ * driver fires, so any restarted build carries more than one. The generator shows the latest and
+ * flags the difference. The captured report has a single record, which means the read of the
+ * ledger this dashboard shows - "these were the inputs" - is never put under pressure by the real
+ * fixture, even though a restarted build is ordinary.
+ *
+ * Changes the field the QfO mismatch already turns on, so the two readings of the same value are
+ * visible together.
+ */
+export function withConfigChange(): BuildStateTransform {
+  return state => {
+    if (!isRecord(state)) return state
+    const next = clone(state)
+
+    const ledger = dataOf(next, 'config_ledger')
+    if (ledger === null) return next
+
+    const current = isRecord(ledger.current) ? ledger.current : null
+    if (current === null) return next
+
+    ledger.record_count = 2
+    const warnings = Array.isArray(ledger.warnings) ? [...ledger.warnings] : []
+    warnings.push(
+      'config_ledger holds 2 records: QFO_DATA_DIR changed between runs of the build driver ' +
+        '(ref_prot_2025_04 → ref_prot_2026_01). Artifacts produced before the change were built ' +
+        'against the earlier value.'
+    )
+    ledger.warnings = warnings
+    return next
+  }
+}
+
 /** The version `withFutureSchema` claims. Newer than anything the model declares support for. */
 export const FUTURE_SCHEMA_VERSION = 2
 
