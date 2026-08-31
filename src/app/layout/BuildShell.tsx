@@ -1,6 +1,7 @@
 import { EmptyState } from '@/@panther.core/components'
 import { useBuildReport, useSelectSpecies, useSelectedOscode } from '@/features/build/hooks'
 import { BuildPreamble } from '@/features/preamble/components/BuildPreamble'
+import { GlanceCharts } from '@/features/overview/components/GlanceCharts'
 import { FrontierSummary } from '@/features/pipeline/components/FrontierSummary'
 import { PhaseDetail } from '@/features/pipeline/components/PhaseDetail'
 import { PhaseTimeline } from '@/features/pipeline/components/PhaseTimeline'
@@ -38,6 +39,7 @@ const BuildShell = () => {
     <div className="space-y-gutter">
       <BuildPreamble />
       <FrontierSummary />
+      <GlanceCharts />
 
       <div className="gap-gutter flex flex-col md:flex-row md:items-start">
         <div
