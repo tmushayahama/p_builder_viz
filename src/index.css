@@ -49,7 +49,10 @@
    deuteranopia transforms, taking min(protan, deutan) per pair; the same
    distance under unsimulated vision; and WCAG contrast of each slot against
    its own chart surface (--pb-surface-1). Computed against OUR surfaces
-   (#fbfbf9 light, #16171a dark), not a library default. Gates: adjacent-pair
+   (#fbfbf9 light, #16171a dark), not a library default. The light chart
+   surface has since moved to #fbfbf8 - one value in one channel, which does
+   not shift any figure below by a measurable amount. The categorical set
+   itself is unchanged, so the gates below still hold as recorded. Gates: adjacent-pair
    CVD dE >= 8, adjacent-pair normal-vision dE >= 15, OKLCH L inside the mode
    band, OKLCH C >= 0.10, contrast >= 3:1.
 
@@ -92,10 +95,13 @@
    --------------------------------------------------------------------------- */
 :root {
   /* -- surfaces: three steps plus the page plane, and no more -------------- */
-  --pb-l-plane: #eeeeea;
-  --pb-l-surface-1: #fbfbf9;
-  --pb-l-surface-2: #f4f4f0;
-  --pb-l-surface-3: #e9e9e4;
+  --pb-l-plane: #e7e7e0;
+  --pb-l-surface-raised: #ffffff;
+  --pb-l-surface-1: #fbfbf8;
+  --pb-l-surface-2: #f2f1ea;
+  --pb-l-surface-3: #e4e3d9;
+  --pb-l-shadow-raised: 0 1px 2px rgb(20 22 26 / 0.06), 0 4px 12px rgb(20 22 26 / 0.05);
+  --pb-l-shadow-panel: 0 1px 1px rgb(20 22 26 / 0.04);
 
   /* -- ink ---------------------------------------------------------------- */
   --pb-l-ink: #14161a;
@@ -181,10 +187,13 @@
   --pb-l-wash-selected: rgb(35 114 207 / 0.09);
 
   /* ====================== dark =========================================== */
-  --pb-d-plane: #0d0e10;
+  --pb-d-plane: #0b0c0e;
+  --pb-d-surface-raised: #1b1d21;
   --pb-d-surface-1: #16171a;
-  --pb-d-surface-2: #1d1f23;
-  --pb-d-surface-3: #25282d;
+  --pb-d-surface-2: #1f2126;
+  --pb-d-surface-3: #292c32;
+  --pb-d-shadow-raised: 0 1px 2px rgb(0 0 0 / 0.5), 0 6px 18px rgb(0 0 0 / 0.4);
+  --pb-d-shadow-panel: 0 1px 1px rgb(0 0 0 / 0.3);
 
   --pb-d-ink: #eef0f3;
   --pb-d-ink-muted: #a8adb5;
@@ -259,6 +268,9 @@
 
   /* ====================== active aliases (light is the default) ========== */
   --pb-plane: var(--pb-l-plane);
+  --pb-surface-raised: var(--pb-l-surface-raised);
+  --pb-shadow-raised: var(--pb-l-shadow-raised);
+  --pb-shadow-panel: var(--pb-l-shadow-panel);
   --pb-surface-1: var(--pb-l-surface-1);
   --pb-surface-2: var(--pb-l-surface-2);
   --pb-surface-3: var(--pb-l-surface-3);
@@ -325,6 +337,9 @@
 
 :root[data-mantine-color-scheme='dark'] {
   --pb-plane: var(--pb-d-plane);
+  --pb-surface-raised: var(--pb-d-surface-raised);
+  --pb-shadow-raised: var(--pb-d-shadow-raised);
+  --pb-shadow-panel: var(--pb-d-shadow-panel);
   --pb-surface-1: var(--pb-d-surface-1);
   --pb-surface-2: var(--pb-d-surface-2);
   --pb-surface-3: var(--pb-d-surface-3);
@@ -397,6 +412,7 @@
    --------------------------------------------------------------------------- */
 @theme inline {
   --color-plane: var(--pb-plane);
+  --color-surface-raised: var(--pb-surface-raised);
   --color-surface-1: var(--pb-surface-1);
   --color-surface-2: var(--pb-surface-2);
   --color-surface-3: var(--pb-surface-3);
@@ -470,26 +486,50 @@
 }
 
 /* Tailwind v4 configures itself from CSS, not a JS config file. Non-colour
-   additions live in a plain @theme block. The type scale is deliberately
-   short and small: dense is the goal, and a build report needs three text
-   sizes, not seven. */
+   additions live in a plain @theme block.
+
+   THE TYPE SCALE CARRIES THE HIERARCHY. An earlier version of this file was
+   deliberately short and small - "a build report needs three text sizes, not
+   seven" - and the result measured out as 133 uses of `text-2xs` and 33 of
+   `text-xs` across the views. At 11px and 12px those are effectively one size,
+   so every region of the page arrived at the same weight and the eye had no
+   entry point. Density was never the problem; the absence of contrast was.
+
+   The steps below are spaced far enough apart to rank things at a glance:
+   3xs 11 / 2xs 12 / xs 13 / sm 15 / lede 17 / display 30. `2xs` remains the
+   workhorse for dense tabular rows, so raising it one step lifts the whole
+   report's legibility without touching a single component. */
 @theme {
   --font-sans:
     system-ui, -apple-system, 'Segoe UI Variable Display', 'Segoe UI', Roboto, sans-serif;
   --font-mono:
     ui-monospace, 'Cascadia Mono', 'Cascadia Code', Consolas, 'SF Mono', Menlo, monospace;
 
-  --text-3xs: 0.625rem;
-  --text-3xs--line-height: 0.875rem;
-  --text-2xs: 0.6875rem;
-  --text-2xs--line-height: 1rem;
+  --text-3xs: 0.6875rem;
+  --text-3xs--line-height: 0.9375rem;
+  --text-2xs: 0.75rem;
+  --text-2xs--line-height: 1.0625rem;
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.1875rem;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.375rem;
+
+  /* The lede is for the one or two sentences a reader must not miss - the
+     frontier statement above all. Display is for the single figure a view
+     leads with; there should never be more than one on screen. */
+  --text-lede: 1.0625rem;
+  --text-lede--line-height: 1.5rem;
+  --text-display: 1.875rem;
+  --text-display--line-height: 2.125rem;
 
   /* the row rhythm a one-line dense table row occupies, and the gutter
-     between panels; naming them keeps the compact scale from drifting */
-  --spacing-row: 1.625rem;
-  --spacing-gutter: 0.75rem;
+     between panels; naming them keeps the scale from drifting */
+  --spacing-row: 1.875rem;
+  --spacing-gutter: 1rem;
+  --spacing-band: 1.375rem;
 
   --radius-hair: 2px;
+  --radius-panel: 5px;
 }
 
 /* ---------------------------------------------------------------------------
@@ -628,4 +668,16 @@ body {
   ::selection {
     background-color: var(--pb-wash-selected);
   }
+}
+
+/* Elevation. The earlier design deliberately had none - hairline rings only, so
+   chrome never competed with data ink. That produced a page with no strata,
+   which is the flatness this pass exists to fix, so a shallow shadow is now
+   allowed on the two surfaces that need to sit above the plane. Kept shallow:
+   the goal is rank, not depth. */
+@utility pb-raised {
+  box-shadow: var(--pb-shadow-raised);
+}
+@utility pb-elevated {
+  box-shadow: var(--pb-shadow-panel);
 }

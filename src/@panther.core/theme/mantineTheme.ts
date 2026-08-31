@@ -43,12 +43,14 @@ export const mantineTheme = createTheme({
     'system-ui, -apple-system, "Segoe UI Variable Display", "Segoe UI", Roboto, sans-serif',
   fontFamilyMonospace:
     'ui-monospace, "Cascadia Mono", "Cascadia Code", Consolas, "SF Mono", Menlo, monospace',
+  // Kept in step with the Tailwind type scale in index.css, so a Mantine control
+  // and the text beside it agree on size.
   fontSizes: {
-    xs: '0.6875rem',
-    sm: '0.75rem',
-    md: '0.8125rem',
-    lg: '0.9375rem',
-    xl: '1.0625rem',
+    xs: '0.75rem',
+    sm: '0.8125rem',
+    md: '0.875rem',
+    lg: '1.0625rem',
+    xl: '1.25rem',
   },
   lineHeights: {
     xs: '1.35',
@@ -57,14 +59,17 @@ export const mantineTheme = createTheme({
     lg: '1.45',
     xl: '1.4',
   },
-  // A compact scale: the report's rhythm is tighter than Mantine's default, and
-  // large empty areas are a defect in this design rather than breathing room.
+  // Denser than Mantine's default, but no longer cramped. The previous scale
+  // topped out at 1rem, which - paired with panel padding that matched it - is
+  // what made the report read as packed rather than dense. Raised roughly one
+  // step throughout; the report should still fit a lot on screen, just not
+  // touch its own edges.
   spacing: {
-    xs: '0.25rem',
-    sm: '0.375rem',
-    md: '0.5rem',
-    lg: '0.75rem',
-    xl: '1rem',
+    xs: '0.375rem',
+    sm: '0.5rem',
+    md: '0.75rem',
+    lg: '1rem',
+    xl: '1.5rem',
   },
   radius: {
     xs: '1px',
@@ -76,10 +81,10 @@ export const mantineTheme = createTheme({
   headings: {
     fontWeight: '600',
     sizes: {
-      h1: { fontSize: '1.0625rem', lineHeight: '1.3' },
-      h2: { fontSize: '0.9375rem', lineHeight: '1.3' },
-      h3: { fontSize: '0.8125rem', lineHeight: '1.35' },
-      h4: { fontSize: '0.75rem', lineHeight: '1.35' },
+      h1: { fontSize: '1.25rem', lineHeight: '1.3' },
+      h2: { fontSize: '1.0625rem', lineHeight: '1.3' },
+      h3: { fontSize: '0.9375rem', lineHeight: '1.35' },
+      h4: { fontSize: '0.8125rem', lineHeight: '1.35' },
     },
   },
   components: {
