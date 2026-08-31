@@ -152,7 +152,14 @@ Each must handle an absent/unknown value without collapsing to a zero or an empt
 
 ## Notes
 
-### DEFERRED: the chart-library decision
+### RESOLVED 2026-08-30 — superseded by `08-visual-pass-and-charts.md`
+
+The deferral below is kept for its reasoning, but the decision has been made: the user chose a chart
+library outright. `@mantine/charts` (Recharts-based) is installed, and the migration is Phase 4 of
+[`08-visual-pass-and-charts.md`](./08-visual-pass-and-charts.md). The visual direction recorded in
+this plan is also superseded there — the brief's Avoid list no longer governs.
+
+### DEFERRED (historical): the chart-library decision
 
 The chart layer is hand-rolled inline SVG on a shared `ChartFrame` chassis, with scales, nice-ticks
 and band layout implemented in `charts/scales.ts` (188 lines). **This is a deliberate deferral, not a
