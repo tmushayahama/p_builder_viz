@@ -14,6 +14,7 @@ export {
 export {
   ANCHOR_PREFIX,
   BUILD_ROUTE,
+  RELEASE_ROUTE,
   buildStepId,
   checkAnchor,
   checkElementId,

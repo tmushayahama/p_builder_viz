@@ -12,6 +12,12 @@ import { slugify } from './primitives'
 /** The route the build report lives at. Anchors are appended as a hash fragment. */
 export const BUILD_ROUTE = '/build'
 
+/**
+ * The release view's route. Declared here beside the record's so the two lenses are named in one
+ * place, even though the release view carries no anchors of its own - it links into the record's.
+ */
+export const RELEASE_ROUTE = '/release'
+
 export type AnchorKind = 'phase' | 'step' | 'report' | 'check' | 'species' | 'config' | 'metric'
 
 /** Element-id prefix per entity kind. Kept short because they end up in URLs. */
