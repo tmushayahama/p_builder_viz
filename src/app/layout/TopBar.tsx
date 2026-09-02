@@ -3,6 +3,8 @@ import { LuMoon, LuSun } from 'react-icons/lu'
 import { useAppDispatch, useAppSelector } from '@/app/hooks'
 import { selectColorScheme, toggleColorScheme } from '@/app/slices/uiSlice'
 import { FixtureSwitcher } from '@/features/preamble/components/FixtureSwitcher'
+import { NavLink } from 'react-router-dom'
+import { BUILD_ROUTE, RELEASE_ROUTE } from '@/features/build/model'
 import { CommandPalette } from '@/features/search/components/CommandPalette'
 
 /**
@@ -34,6 +36,7 @@ const TopBar = () => {
       </span>
 
       <span className="ml-auto flex flex-wrap items-center gap-3">
+        <LensToggle />
         <CommandPalette />
         <FixtureSwitcher />
         <Tooltip label={`Switch to ${nextScheme} mode`} withArrow>
@@ -51,3 +54,34 @@ const TopBar = () => {
 }
 
 export default TopBar
+
+/**
+ * The two lenses over one report.
+ *
+ * Labelled by audience rather than by feature: a reader arriving here does not know that "spine"
+ * or "frontier" are things, and the choice they are making is which question they want answered -
+ * what is in this release, or how did the build get here.
+ *
+ * A lens switch belongs in the chrome, not in the navigation: the record's own navigation is the
+ * phase spine, and putting these beside it would imply they are peers of a phase.
+ */
+const LensToggle = () => {
+  const linkClass = ({ isActive }: { isActive: boolean }) =>
+    [
+      'rounded-hair px-2 py-0.5 text-2xs',
+      isActive ? 'bg-accent-wash text-accent' : 'text-ink-muted hover:text-ink',
+    ].join(' ')
+
+  return (
+    <nav aria-label="View" className="pb-hairline rounded-hair flex items-center gap-0.5 p-0.5">
+      <NavLink to={RELEASE_ROUTE} className={linkClass}>
+        Release
+      </NavLink>
+      {/* `end` is off deliberately: the record owns `/` and `/build`, and a deep link carries a
+          hash onto either, so the record's tab must stay active for all of them. */}
+      <NavLink to={BUILD_ROUTE} className={linkClass}>
+        Build record
+      </NavLink>
+    </nav>
+  )
+}

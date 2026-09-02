@@ -1,7 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import AppLayout from '@/app/layout/AppLayout'
 import BuildShell from '@/app/layout/BuildShell'
-import { BUILD_ROUTE } from '@/features/build/model'
+import ReleaseView from '@/features/release/components/ReleaseView'
+import { BUILD_ROUTE, RELEASE_ROUTE } from '@/features/build/model'
 
 /**
  * One route, addressed by hash.
@@ -22,6 +23,10 @@ export const router = createBrowserRouter(
       children: [
         { index: true, element: <BuildShell /> },
         { path: BUILD_ROUTE.replace(/^\//, ''), element: <BuildShell /> },
+        // A second lens on the same report. The record keeps `/`: whoever watches a build opens
+        // this app far more often than whoever reviews a release, and every existing deep link
+        // and diagnostic anchor already points into the record.
+        { path: RELEASE_ROUTE.replace(/^\//, ''), element: <ReleaseView /> },
         { path: '*', element: <BuildShell /> },
       ],
     },
