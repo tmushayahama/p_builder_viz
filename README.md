@@ -1,6 +1,18 @@
-# PANTHER Build Visualization
+# PANTHER Build Dashboard
 
-Project template. The stack is wired and boots; the application itself is not built yet.
+Reads a generated build-state report and presents it as an operational, QC and release record for a
+PANTHER library build. It touches no build filesystem and runs nothing.
+
+Two lenses over one report:
+
+- **`/` — the build record.** Pipeline-first: the phase spine is the navigation, and each report
+  hangs from the phase that produced it. Where the build reached, what is incomplete behind it, and
+  what this dashboard checked.
+- **`/release` — the release view.** The same report for a reader who does not run the pipeline:
+  what is in the library, what changed since the previous one, and how much annotation carried
+  forward. No Make goals, artifact timestamps or phases.
+
+Switch between them from the toggle in the header, or go straight to either URL.
 
 ## Quick start
 

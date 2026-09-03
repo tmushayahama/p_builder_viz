@@ -4,18 +4,32 @@ Guidance for Claude Code when working in this repository.
 
 ## Project Overview
 
-**PANTHER Build Visualization** — a React 19 + TypeScript SPA, currently a **project template**. The
-stack is installed and boots to a placeholder route; no application has been built yet. Vite 6,
-Mantine v9, Tailwind CSS v4, Redux Toolkit, react-router v7.
+**PANTHER Build Dashboard** (`pantherdb/panther_build_dashboard`) — a React 19 + TypeScript SPA
+that reads a generated build-state report and presents it as an operational, QC and release record
+for a PANTHER library build. Vite 6, Mantine v9, Tailwind CSS v4, Redux Toolkit, react-router v7.
+
+It touches no build filesystem and runs nothing. The upstream pipeline (`pantherdb/panther_build`)
+emits `reports/build_state/build_state.json` via its own `build_state.py` collector suite; this reads it.
+That
+design spec lists "the web app that consumes build_state.json" as out of scope — this repo IS that
+web app.
+
+**Two lenses over one report:**
+
+- `/` and `/build` — the **build record**, pipeline-first. The phase spine is the navigation and
+  reports hang from the phase that produced them. For whoever watches a build.
+- `/release` — the **release view**, for a reader who does not run the pipeline. Same model, domain
+  language, and no Make goals, artifact timestamps, phases or schema versions. Every phrase comes
+  from `src/features/release/vocabulary.ts`.
+
+`docs/` holds the source material: `panther-build-dashboard-prototype-brief-v3.md` (the brief this
+was built from) and `build_state.json` (a captured report for a PANTHER 20.0 target — the only real
+fixture; the other states are transforms of it). `docs/ui-roadmap.md` records what the upstream
+pipeline repos say the UI can and cannot promise.
 
 The stack and conventions were copied from `C:/work/go/noctua-visual-pathway-editor`, minus the
 dependencies that project needs and this one does not (Apollo/GraphQL, JointJS, ReactFlow, dagre,
 graphlib, socket.io, axios, react-hook-form, react-ga4).
-
-`docs/` holds reference material for planned work: `panther-build-dashboard-prototype-brief-v3.md`
-(the spec for a JSON-driven build dashboard) and `build_state.json` (a captured build-state report
-for a PANTHER 20.0 target, standing in for what a report generator will eventually emit). **Neither
-is implemented.** Do not build from the brief unless asked.
 
 ## Commands
 
@@ -24,7 +38,7 @@ is implemented.** Do not build from the brief unless asked.
 - `npm run build` — `tsc -b` then `vite build --mode production` into `dist/`
 - `npm test` — Vitest. **Only `tests/**/*.test.{ts,tsx}` is collected**; a spec beside its source is
   silently ignored.
-- Run one file: `npx vitest run tests/features/home/HomePage.test.tsx`
+- Run one file: `npx vitest run tests/features/release/ReleaseView.test.tsx`
 - `npm run test:e2e` — Playwright; starts its own dev server on 4310 (`test:e2e:ui`,
   `test:e2e:headed`)
 - `npm run lint` / `lint:fix` / `format` / `type-check`
